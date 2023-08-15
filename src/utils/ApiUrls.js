@@ -1,0 +1,58 @@
+class ApiUrls {
+//    static SERVICE_LOCAL_HOST = "192.168.0.178";
+//    static SERVICE_DEV_HOST = "http://ec2-13-233-198-72.ap-south-1.compute.amazonaws.com";
+
+    static SERVICE_URL =  'http://ec2-43-204-114-19.ap-south-1.compute.amazonaws.com:8045'
+    static GET_ORDER_BY_ID_API = "/order/"
+    static PUT_ORDER_BY_ID_API = "/order/"
+    static GET_PRODUCTS_FOODITEMS_API = "/products"
+    static GET_SCOTCH_PRODUCT_BY_CATEGORY_ID_API = "/product/category/24?items_per_page=15&page_number=2"
+    static GET_PROMOTIONAL_PRODUCTS_API = "/promotional-products/promotionalProducts"
+    static GET_CATEGORY_LIST_API = "/readCategory"
+    static GET_PAGINATION_API = "/products?items_per_page=24&page_number="
+    static GET_ADDRESS_USER_ID_API = "/user/"
+    static POST_ADD_ADDRESS_API = "/address"
+    static POST_ADD_CREDIT_CARD_DETAILS_API = "/credit-card/credit-card"
+    static GET_CART_LIST_API = "/cart/findAllPc"
+    static POST_YOUR_ORDER_PLACED_API = "/order/placeYourOrder"
+    static GET_ADDRESS_ID_API = "/address/"
+    static PUT_ADDRESS_ID_API = "/address/"
+    static GET_CREDIT_CARD_BY_ID_API = "/credit-card/credit-card_by_Id/"
+    static DELETE_ALL_FROM_CART_API = "/cart/delete_All_cart/"
+    static GET_CHILDREN_BY_CART_ID_API = "/findChildrenByCatId/"
+    static GET_PRODUCTS_BY_CATEGORY_API = "/product/category/"
+    static GET_BY_PRODUCTS_API = "/products?items_per_page=24&page_number=1"
+    static GET_BY_ADDRESS_ALL_API = "/address/all"
+    static GET_SHIPPING_API = "/shipping/readShipping"
+    static GET_CREDIT_CARD_BY_USER_ID_API = "/credit-card/credit-cards_byUser_Id/"
+    static GET_ORDERS_ALL_API = "/order/all?items_per_page=20&page_number=1"
+    static GET_ORDERS_BY_STATUS_AND_USERS_API = "/order/ByStatusAndUserId/"
+    static GET_PRODUCTS_BY_RATINGS_API = "/productRatings"
+    static GET_RECENT_LAST_7_SEARCH_BY_USER_ID_API = "/recentSearch/Last_7_RecentSearchByUserId"
+    static POST_RECENT_SEARCH_API = "/recentSearch"
+    static GET_RECENT_SEARCH_API = "/recentSearch"
+    static GET_TRANSACTIONS_BY_ID_API = "/Transaction/Transactions/"
+    static GET_HSECREENS_API = "/hscreen/AllHscreens"
+    static POST_GENERATED_OTP_BY_USER_API = '/user/gen-otp'
+    static POST_VERIFY_OTP_BY_USER_API = '/user/verify-otp'
+    static POST_INSERT_INTO_CART_API = "/cart/insertIntoCart"
+    static GET_FAVOURITES_API = "/favourites/favourites/"
+    static GET_FAVOURITE_PRODUCT_DETAILS_API = "/favourites/favouriteProductsDetails/"
+    static POST_ADD_FAVOUITES_API = "/favourites/add--Fav"
+    static DELETE_FAVOUITES_BY_USERID_AND_PRODUCTID_API = "/favourites/DelFavBy_UserId_and_ProductId"
+    static DELETE_CART_API = "/cart/"
+    static DELETE_RECENT_SEARCH_API = "/recentSearch/clearSearch/1"
+    static DELETE_ADDRESS_ID_API = "/address/"
+    static DELETE_FROM_CREDITCARD_API = "/credit-card/delete-credit-card/"
+    static GET_BRANDS_API = "/readBrand"
+    static FILTER_URL = "/filter1--category--brand--price"
+    static SEARCH_API = "/multi__Search__in_category_brand_product/"
+    static POST_USER_DETAILS_API = "/user"
+    static GET_USER_SERACH_BY_KEYWORD = "/user/Search_Users_ByKeyword/"
+    static POST_USER_SIGNUP_API = "/user"
+    static VERIFY_JWT = "/user/verifyJWT"
+    static PUT_CREDIT_CARD = "/credit-card/credit-card-update/"
+    static GET_USER_ORDER_PRODUCTS = "/order/recent5OrderdProductsOfUser/"
+}
+
+export default ApiUrls;
