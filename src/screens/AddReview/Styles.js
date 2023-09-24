@@ -25,7 +25,7 @@ export const Styles = function (colors) {
         },
 
         primaryText: {
-            fontFamily: Fonts.RUBIK_MEDIUM,
+            
             fontSize: Typography.H8,
             paddingVertical: hp("3"),
             color: colors.headingColor,

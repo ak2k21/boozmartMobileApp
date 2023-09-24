@@ -1,16 +1,19 @@
 import Routes from "../navigation/Routes";
 import {Animated} from "react-native";
 import AppConfig from "../../branding/App_config";
-import assets from "../../branding/boozemart/assets/Assets";
+import assets from "../../branding/Boozemart2/assets/Assets";
 import {CommonActions} from "@react-navigation/native";
-import Config from "../../branding/boozemart/configuration/Config";
-import IconNames from "../../branding/boozemart/assets/IconNames";
+import Config from "../../branding/Boozemart2/configuration/Config";
+import IconNames from "../../branding/Boozemart2/assets/IconNames";
 import {
   GoogleSignin,
   GoogleSigninButton,
   statusCodes,
 } from '@react-native-google-signin/google-signin';
 import * as Keychain from 'react-native-keychain';
+import store from '../store/index';
+import { commonActions } from '../store/commonStore'
+const dispatch = store.dispatch
 
 const colors = AppConfig.lightColors.default;
 
@@ -25,7 +28,7 @@ class Globals {
     //Variant 1 Intro
     static intro1Items = [
         {
-            title: "Welcome to the BoozeMart App!",
+            title: "Welcome to the Boozemart2 App!",
             subtitle: "Here, you can browse and purchase a wide variety of drinks from your favorite brands. Whether you're looking for a refreshing beer, a smooth whiskey, or a delicious cocktail, we've got you covered.",
             headerImg: assets.intro1
         },
@@ -49,7 +52,7 @@ class Globals {
     //Variant 2 Intro
     static intro2Items = [
         {
-            title: "Welcome to the BoozeMart App!",
+            title: "Welcome to the Boozemart2 App!",
             subtitle: "Here, you can browse and purchase a wide variety of drinks from your favorite brands. Whether you're looking for a refreshing beer, a smooth whiskey, or a delicious cocktail, we've got you covered.",
             headerImg: IconNames.BagShopping,
             theme: "green"
@@ -77,7 +80,7 @@ class Globals {
     //Variant 3 Intro
     static intro3Items = [
         {
-            title: "Welcome to the BoozeMart App!",
+            title: "Welcome to the Boozemart2 App!",
             subtitle: "Here, you can browse and purchase a wide variety of drinks from your favorite brands. Whether you're looking for a refreshing beer, a smooth whiskey, or a delicious cocktail, we've got you covered.",
             headerImg: assets.intro2_img1
         },
@@ -707,7 +710,7 @@ class Globals {
         {
             id: 1,
             isDefault: false,
-            name: 'Boozemart Bay Area',
+            name: 'Boozemart2 Bay Area',
             address: "2811 Crescent Day, LA Port California, United States, 77511",
             phone: "+1 122 541 1234",
 
@@ -723,7 +726,7 @@ class Globals {
         {
             id: 2,
             isDefault: false,
-            name: 'Boozemart Downtown',
+            name: 'Boozemart2 Downtown',
             address: "2811 Crescent Day, LA Port California, United States, 77511",
             phone: "+1 122 541 1234",
 
@@ -739,7 +742,7 @@ class Globals {
         {
             id: 3,
             isDefault: false,
-            name: 'Boozemart 5th Avenue',
+            name: 'Boozemart2 5th Avenue',
             address: "2811 Crescent Day, LA Port California, United States, 77511",
             phone: "+1 122 541 1234",
 
@@ -935,17 +938,11 @@ class Globals {
             {
                 id: 2,
                 isActive: false,
-                icon: IconNames.Paypal,
-                type: 'Paypal',
-            },
-            {
-                id: 3,
-                isActive: false,
                 icon: IconNames.Apple,
                 type: 'Apple Pay',
             },
             {
-                id: 4,
+                id: 3,
                 isActive: false,
                 icon: IconNames.MoneyBillWave,
                 type: 'Cash on Delivery',
@@ -1371,7 +1368,7 @@ class Globals {
             fullName: "David Martin",
             reviewTime: "32 minutes ago",
             rating: 4.5,
-            comment: "Boozemart team is fast and always deliver drinks. Highly Recommend!"
+            comment: "Boozemart2 team is fast and always deliver drinks. Highly Recommend!"
         },
         {
             id: 2,
@@ -1387,7 +1384,7 @@ class Globals {
             fullName: "David Martin",
             reviewTime: "32 minutes ago",
             rating: 5,
-            comment: "Boozemart team is fast and always deliver drinks. Highly Recommend!"
+            comment: "Boozemart2 team is fast and always deliver drinks. Highly Recommend!"
         },
         {
             id: 4,
@@ -1403,7 +1400,7 @@ class Globals {
             fullName: "David Martin",
             reviewTime: "32 minutes ago",
             rating: 4.5,
-            comment: "Boozemart team is fast and always deliver fresh fruits. Highly Recommend!"
+            comment: "Boozemart2 team is fast and always deliver fresh fruits. Highly Recommend!"
         }
 
 
@@ -1467,12 +1464,33 @@ class Globals {
                 title: "Sign out",
                 color: "red",
                 onPress: async () => {
-                    GoogleSignin.configure({
-                         webClientId: '62455514535-pe322e7os1ok65ftturlepcim8mageu1.apps.googleusercontent.com',
-                         offlineAccess: true,
-                       });
                     await GoogleSignin.signOut();
                     await Keychain.resetGenericPassword();
+                    await dispatch(commonActions.setUserGoogleData({
+                        photo: "",
+                        name: "",
+                        email: ""
+                    }));
+                    await dispatch(commonActions.setUserTokenCredentials({
+                        username: "",
+                        password: ""
+                    }));
+                    await dispatch(commonActions.setCartCount(0))
+                    await dispatch(commonActions.setUserId(-1));
+                    navigation.dispatch(CommonActions.reset({
+                        index: 1,
+                        routes: [
+                            {name: Routes.LOGIN_FORM_SCREEN3},
+                        ],
+                    }))
+                }
+            },
+            {
+                id: 9,
+                icon: IconNames.LogoffFull,
+                title: "Sign in",
+                color: "red",
+                onPress: () => {
                     navigation.dispatch(CommonActions.reset({
                         index: 1,
                         routes: [
@@ -2614,225 +2632,69 @@ class Globals {
       }
   ];
 
-  static SwipeCardData = [
-        [
-          {
-            "id": 1,
-            "title": "Stella Artois",
-            "image": "https://objectstorage.us-ashburn-1.oraclecloud.com/n/id56xinuvxb3/b/boozemart-media/o/scotch%2Fwine1.jpg",
-            "bigImage": "https://objectstorage.us-ashburn-1.oraclecloud.com/n/id56xinuvxb3/b/boozemart-media/o/scotch%2Fwine1.jpg",
-            "price": 2.99,
-            "weight": "12 oz",
-            "discount": 0.2,
-            "cartCount": 0,
-            "isFavourite": false,
-            "detail": "Stella Artois is a classic Belgian lager with a crisp, refreshing taste and a subtle hop bitterness. Brewed with the finest barley and hops, it is a timeless classic that pairs well with a variety of foods.",
-            "ratingValue": 4.5,
-            "type": "Scotch"
-          },
-          {
-            "id": 2,
-            "title": "Guinness Draught",
-            "image": "https://objectstorage.us-ashburn-1.oraclecloud.com/n/id56xinuvxb3/b/boozemart-media/o/scotch%2Fwine2.jpg",
-            "bigImage": "https://objectstorage.us-ashburn-1.oraclecloud.com/n/id56xinuvxb3/b/boozemart-media/o/scotch%2Fwine2.jpg",
-            "price": 3.99,
-            "weight": "14.9 oz",
-            "discount": 0.1,
-            "cartCount": 0,
-            "isFavourite": true,
-            "detail": "Guinness Draught is an iconic Irish stout with a rich, creamy texture and a smooth, velvety finish. Its distinct roasted malt flavor and subtle bitterness make it a perfect match for hearty dishes like steak and stews.",
-            "ratingValue": 4.7,
-            "type": "Scotch"
-          },
-          {
-            "id": 3,
-            "title": "Heineken",
-            "image": "https://objectstorage.us-ashburn-1.oraclecloud.com/n/id56xinuvxb3/b/boozemart-media/o/scotch%2Fwine3.jpg",
-            "bigImage": "https://objectstorage.us-ashburn-1.oraclecloud.com/n/id56xinuvxb3/b/boozemart-media/o/scotch%2Fwine3.jpg",
-            "price": 2.49,
-            "weight": "12 oz",
-            "discount": 0.05,
-            "cartCount": 0,
-            "isFavourite": false,
-            "detail": "Heineken is a premium Dutch lager known for its distinctive green bottle and crisp, refreshing taste. Brewed using only the finest natural ingredients, it is a classic beer that can be enjoyed anytime, anywhere.",
-            "ratingValue": 4.2,
-            "type": "Scotch"
-          },
-          {
-            "id": 4,
-            "title": "Blue Moon Belgian White",
-            "image": "https://objectstorage.us-ashburn-1.oraclecloud.com/n/id56xinuvxb3/b/boozemart-media/o/scotch%2Fwine4.jpg",
-            "bigImage": "https://objectstorage.us-ashburn-1.oraclecloud.com/n/id56xinuvxb3/b/boozemart-media/o/scotch%2Fwine4.jpg",
-            "price": 3.49,
-            "weight": "12 oz",
-            "discount": 0,
-            "cartCount": 0,
-            "isFavourite": true,
-            "detail": "Blue Moon Belgian White is a Belgian-style wheat ale brewed with Valencia orange peel and coriander. Its signature cloudy appearance and citrusy flavor make it a refreshing choice for any occasion.",
-            "ratingValue": 4.4,
-            "type": "Scotch"
-          },
-          {
-            "id": 5,
-            "title": "Samuel Adams Boston Lager",
-            "image": "https://objectstorage.us-ashburn-1.oraclecloud.com/n/id56xinuvxb3/b/boozemart-media/o/scotch%2Fwine5.jpg",
-            "bigImage": "https://objectstorage.us-ashburn-1.oraclecloud.com/n/id56xinuvxb3/b/boozemart-media/o/scotch%2Fwine5.jpg",
-            "price": 3.29,
-            "weight": "12 oz",
-            "discount": 0.15,
-            "cartCount": 0,
-            "isFavourite": false,
-            "detail": "Samuel Adams Boston Lager is a classic American lager with a rich, full-bodied flavor and a balanced hop finish. Brewed using traditional methods.",
-            "ratingValue": 4.1,
-            "type": "Scotch"
-            }],
-            [
-              {
-                "id": "w001",
-                "title": "Cabernet Sauvignon",
-                "image": "https://objectstorage.us-ashburn-1.oraclecloud.com/n/id56xinuvxb3/b/boozemart-media/o/Wine%2F02-Graham%20Beck.jpg",
-                "bigImage": "https://objectstorage.us-ashburn-1.oraclecloud.com/n/id56xinuvxb3/b/boozemart-media/o/Wine%2F02-Graham%20Beck.jpg",
-                "price": 29.99,
-                "weight": "750ml",
-                "discount": 10,
-                "cartCount": 0,
-                "isFavourite": true,
-                "detail": "A bold and full-bodied wine with flavors of blackberry and cassis.",
-                "ratingValue": 4.5,
-                "type": "Whiskey"
-              },
-              {
-                "id": "w002",
-                "title": "Chardonnay",
-                "image": "https://objectstorage.us-ashburn-1.oraclecloud.com/n/id56xinuvxb3/b/boozemart-media/o/Wine%2F05-Arras%20Wine.jpg",
-                "bigImage": "https://objectstorage.us-ashburn-1.oraclecloud.com/n/id56xinuvxb3/b/boozemart-media/o/Wine%2F05-Arras%20Wine.jpg",
-                "price": 24.99,
-                "weight": "750ml",
-                "discount": 0,
-                "cartCount": 0,
-                "isFavourite": false,
-                "detail": "A medium-bodied wine with notes of apple and citrus.",
-                "ratingValue": 4.2,
-                                                  "type": "Whiskey"
-              },
-              {
-                "id": "w003",
-                "title": "Pinot Noir",
-                "image": "https://objectstorage.us-ashburn-1.oraclecloud.com/n/id56xinuvxb3/b/boozemart-media/o/Wine%2F07-Bellavista.jpg",
-                "bigImage": "https://objectstorage.us-ashburn-1.oraclecloud.com/n/id56xinuvxb3/b/boozemart-media/o/Wine%2F07-Bellavista.jpg",
-                "price": 39.99,
-                "weight": "750ml",
-                "discount": 5,
-                "cartCount": 0,
-                "isFavourite": false,
-                "detail": "A light to medium-bodied wine with flavors of cherry and raspberry.",
-                "ratingValue": 4.7,
-                                                  "type": "Whiskey"
-              },
-              {
-                "id": "w004",
-                "title": "Merlot",
-                "image": "https://objectstorage.us-ashburn-1.oraclecloud.com/n/id56xinuvxb3/b/boozemart-media/o/Wine%2F5c71396cc9aad0435dccf01a3dfd35d6.jpg",
-                "bigImage": "https://objectstorage.us-ashburn-1.oraclecloud.com/n/id56xinuvxb3/b/boozemart-media/o/Wine%2F5c71396cc9aad0435dccf01a3dfd35d6.jpg",
-                "price": 27.99,
-                "weight": "750ml",
-                "discount": 15,
-                "cartCount": 0,
-                "isFavourite": false,
-                "detail": "A smooth and easy-drinking wine with notes of plum and black cherry.",
-                "ratingValue": 4.0,
-                                                  "type": "Whiskey"
-              },
-              {
-                "id": "w005",
-                "title": "Sauvignon Blanc",
-                "image": "https://objectstorage.us-ashburn-1.oraclecloud.com/n/id56xinuvxb3/b/boozemart-media/o/Wine%2F72b3f4380cde1d339c277b14e4b1a87b.jpg",
-                "bigImage": "https://objectstorage.us-ashburn-1.oraclecloud.com/n/id56xinuvxb3/b/boozemart-media/o/Wine%2F72b3f4380cde1d339c277b14e4b1a87b.jpg",
-                "price": 19.99,
-                "weight": "750ml",
-                "discount": 0,
-                "cartCount": 0,
-                "isFavourite": true,
-                "detail": "A crisp and refreshing wine with aromas of citrus and herbs.",
-                "ratingValue": 4.3,
-                                                  "type": "Whiskey"
-              }
-            ],
-            [
-              {
-                "id": 1,
-                "title": "Johnnie Walker Black Label",
-                "image": "https://objectstorage.us-ashburn-1.oraclecloud.com/n/id56xinuvxb3/b/boozemart-media/o/Champagne%2Fd92f54d480c5199373b32e57f88a2d39.jpg",
-                "bigImage": "https://objectstorage.us-ashburn-1.oraclecloud.com/n/id56xinuvxb3/b/boozemart-media/o/Champagne%2Fd92f54d480c5199373b32e57f88a2d39.jpg",
-                "price": 50.99,
-                "weight": "750ml",
-                "discount": 10,
-                "cartCount": 0,
-                "isFavourite": true,
-                "detail": "A blend of more than 30 whiskies with a unique character, deep layers of flavor, and a warming, rewarding finish.",
-                "ratingValue": 4.5,
-                                                  "type": "Combos"
-              },
-              {
-                "id": 2,
-                "title": "Jack Daniel's Single Barrel Select",
-                "image": "https://objectstorage.us-ashburn-1.oraclecloud.com/n/id56xinuvxb3/b/boozemart-media/o/Champagne%2Fpexels-photo-2454120.jpeg",
-                "bigImage": "https://objectstorage.us-ashburn-1.oraclecloud.com/n/id56xinuvxb3/b/boozemart-media/o/Champagne%2Fpexels-photo-2454120.jpeg",
-                "price": 69.99,
-                "weight": "750ml",
-                "discount": 5,
-                "cartCount": 0,
-                "isFavourite": false,
-                "detail": "A finely crafted single barrel Tennessee whiskey with notes of vanilla, caramel, and oak.",
-                "ratingValue": 4.7,
-                                                                                    "type": "Combos"
-              },
-              {
-                "id": 3,
-                "title": "Macallan 12 Year Old Double Cask",
-                "image": "https://objectstorage.us-ashburn-1.oraclecloud.com/n/id56xinuvxb3/b/boozemart-media/o/Champagne%2Fpexels-photo-2995333.webp",
-                "bigImage": "https://objectstorage.us-ashburn-1.oraclecloud.com/n/id56xinuvxb3/b/boozemart-media/o/Champagne%2Fpexels-photo-2995333.webp",
-                "price": 89.99,
-                "weight": "750ml",
-                "discount": 0,
-                "cartCount": 0,
-                "isFavourite": true,
-                "detail": "A single malt scotch aged for 12 years in a unique combination of American and European oak casks, delivering notes of vanilla, toffee, and ginger.",
-                "ratingValue": 4.8,
-                                                                                    "type": "Combos"
-              },
-              {
-                "id": 4,
-                "title": "Glenlivet 18 Year Old Single Malt",
-                "image": "https://objectstorage.us-ashburn-1.oraclecloud.com/n/id56xinuvxb3/b/boozemart-media/o/Champagne%2Fpexels-photo-3461205.jpeg",
-                "bigImage": "https://objectstorage.us-ashburn-1.oraclecloud.com/n/id56xinuvxb3/b/boozemart-media/o/Champagne%2Fpexels-photo-3461205.jpeg",
-                "price": 119.99,
-                "weight": "750ml",
-                "discount": 15,
-                "cartCount": 0,
-                "isFavourite": false,
-                "detail": "A complex single malt scotch with rich flavors of fruits, nuts, and spices, aged for a minimum of 18 years.",
-                "ratingValue": 4.9,
-                                                                                    "type": "Combos"
-              },
-              {
-                "id": 5,
-                "title": "Bulleit Bourbon",
-                "image": "https://objectstorage.us-ashburn-1.oraclecloud.com/n/id56xinuvxb3/b/boozemart-media/o/Champagne%2Fpexels-photo-7476178.jpeg",
-                "bigImage": "https://objectstorage.us-ashburn-1.oraclecloud.com/n/id56xinuvxb3/b/boozemart-media/o/Champagne%2Fpexels-photo-7476178.jpeg",
-                "price": 34.99,
-                "weight": "750ml",
-                "discount": 0,
-                "cartCount": 0,
-                "isFavourite": true,
-                "detail": "A Kentucky straight bourbon with a high rye content, delivering a spicy and bold flavor with notes of vanilla and caramel.",
-                "ratingValue": 4.6,
-                                                                                    "type": "Combos"
-              }
-            ]
-  ]
+  static usStates = [
+    { name: 'Alabama', index: 0 },
+    { name: 'Alaska', index: 1 },
+    { name: 'Arizona', index: 2 },
+    { name: 'Arkansas', index: 3 },
+    { name: 'California', index: 4 },
+    { name: 'Colorado', index: 5 },
+    { name: 'Connecticut', index: 6 },
+    { name: 'Delaware', index: 7 },
+    { name: 'Florida', index: 8 },
+    { name: 'Georgia', index: 9 },
+    { name: 'Hawaii', index: 10 },
+    { name: 'Idaho', index: 11 },
+    { name: 'Illinois', index: 12 },
+    { name: 'Indiana', index: 13 },
+    { name: 'Iowa', index: 14 },
+    { name: 'Kansas', index: 15 },
+    { name: 'Kentucky', index: 16 },
+    { name: 'Louisiana', index: 17 },
+    { name: 'Maine', index: 18 },
+    { name: 'Maryland', index: 19 },
+    { name: 'Massachusetts', index: 20 },
+    { name: 'Michigan', index: 21 },
+    { name: 'Minnesota', index: 22 },
+    { name: 'Mississippi', index: 23 },
+    { name: 'Missouri', index: 24 },
+    { name: 'Montana', index: 25 },
+    { name: 'Nebraska', index: 26 },
+    { name: 'Nevada', index: 27 },
+    { name: 'New Hampshire', index: 28 },
+    { name: 'New Jersey', index: 29 },
+    { name: 'New Mexico', index: 30 },
+    { name: 'New York', index: 31 },
+    { name: 'North Carolina', index: 32 },
+    { name: 'North Dakota', index: 33 },
+    { name: 'Ohio', index: 34 },
+    { name: 'Oklahoma', index: 35 },
+    { name: 'Oregon', index: 36 },
+    { name: 'Pennsylvania', index: 37 },
+    { name: 'Rhode Island', index: 38 },
+    { name: 'South Carolina', index: 39 },
+    { name: 'South Dakota', index: 40 },
+    { name: 'Tennessee', index: 41 },
+    { name: 'Texas', index: 42 },
+    { name: 'Utah', index: 43 },
+    { name: 'Vermont', index: 44 },
+    { name: 'Virginia', index: 45 },
+    { name: 'Washington', index: 46 },
+    { name: 'West Virginia', index: 47 },
+    { name: 'Wisconsin', index: 48 },
+    { name: 'Wyoming', index: 49 }
+  ];
 
+    static newJerseyTrentonZipcodes = [{ "place name": "Trenton", "longitude": "-74.712", "post code": "08601", "latitude": "40.2805" }, { "place name": "Trenton", "longitude": "-74.712", "post code": "08602", "latitude": "40.2805" }, { "place name": "Trenton", "longitude": "-74.712", "post code": "08603", "latitude": "40.2805" }, { "place name": "Trenton", "longitude": "-74.712", "post code": "08604", "latitude": "40.2805" }, { "place name": "Trenton", "longitude": "-74.712", "post code": "08605", "latitude": "40.2805" }, { "place name": "Trenton", "longitude": "-74.712", "post code": "08606", "latitude": "40.2805" }, { "place name": "Trenton", "longitude": "-74.712", "post code": "08607", "latitude": "40.2805" }, { "place name": "Trenton", "longitude": "-74.7622", "post code": "08608", "latitude": "40.2204" }, { "place name": "Trenton", "longitude": "-74.741", "post code": "08609", "latitude": "40.2248" }, { "place name": "Trenton", "longitude": "-74.705", "post code": "08610", "latitude": "40.2016" }, { "place name": "Trenton", "longitude": "-74.7416", "post code": "08611", "latitude": "40.1967" }, { "place name": "Trenton", "longitude": "-74.7821", "post code": "08618", "latitude": "40.2377" }, { "place name": "Trenton", "longitude": "-74.6962", "post code": "08619", "latitude": "40.2418" }, { "place name": "Trenton", "longitude": "-74.6488", "post code": "08620", "latitude": "40.167" }, { "place name": "Trenton", "longitude": "-74.712", "post code": "08625", "latitude": "40.2805" }, { "place name": "Trenton", "longitude": "-74.8168", "post code": "08628", "latitude": "40.2655" }, { "place name": "Trenton", "longitude": "-74.7334", "post code": "08629", "latitude": "40.2196" }, { "place name": "Trenton", "longitude": "-74.7627", "post code": "08638", "latitude": "40.251" }, { "place name": "Trenton", "longitude": "-74.6052", "post code": "08640", "latitude": "40.0098" }, { "place name": "Trenton", "longitude": "-74.588", "post code": "08641", "latitude": "40.027" }, { "place name": "Trenton", "longitude": "-74.712", "post code": "08645", "latitude": "40.2805" }, { "place name": "Trenton", "longitude": "-74.712", "post code": "08646", "latitude": "40.2805" }, { "place name": "Trenton", "longitude": "-74.712", "post code": "08647", "latitude": "40.2805" }, { "place name": "Trenton", "longitude": "-74.6912", "post code": "08648", "latitude": "40.2795" }, { "place name": "Trenton", "longitude": "-74.712", "post code": "08650", "latitude": "40.2805" }, { "place name": "Trenton", "longitude": "-74.712", "post code": "08666", "latitude": "40.2805" }, { "place name": "Trenton", "longitude": "-74.712", "post code": "08677", "latitude": "40.2805" }, { "place name": "Trenton", "longitude": "-74.6576", "post code": "08690", "latitude": "40.2336" }, { "place name": "Trenton", "longitude": "-74.5939", "post code": "08691", "latitude": "40.2197" }, { "place name": "Trenton", "longitude": "-74.712", "post code": "08695", "latitude": "40.2805" }];
 
+    static orderStatus = {
+        PENDING: "Pending",
+        PLACED: "Placed",
+        SHIPPED: "Shipped",
+        CANCELLED: "Cancelled",
+        DELIVERED: "Delivered"
+    };
+  
 }
 
 export default Globals;

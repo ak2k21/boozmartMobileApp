@@ -24,7 +24,7 @@ export const SubCategory = (props) => {
     return (
 
             <View style={itemStyles.subCategoryContainer}>
-                <Text style={{fontWeight: "bold", textAlign: "center"}}>{props.subCategory}</Text>
+                <Text style={{textAlign: "center"}}>{props.subCategory}</Text>
             </View>
 
     );

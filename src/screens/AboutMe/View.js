@@ -8,15 +8,15 @@ import AppInput from "../../components/Application/AppInput/View";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scrollview";
 import AppButton from "../../components/Application/AppButton/View";
 import {useTheme} from "@react-navigation/native";
-import {commonDarkStyles} from "../../../branding/boozemart/styles/dark/Style";
-import {commonLightStyles} from "../../../branding/boozemart/styles/light/Style";
-import IconNames from "../../../branding/boozemart/assets/IconNames";
+import {commonDarkStyles} from "../../../branding/Boozemart2/styles/dark/Style";
+import {commonLightStyles} from "../../../branding/Boozemart2/styles/light/Style";
+import IconNames from "../../../branding/Boozemart2/assets/IconNames";
 import ApiUrls from "../../utils/ApiUrls";
 import Axios from 'axios';
-
-import FlashMessage from "react-native-flash-message";
-
-import { showMessage, hideMessage } from "react-native-flash-message";
+import store from '../../store/index';
+import { commonActions } from '../../store/commonStore'
+import FlashMessage, { showMessage } from "react-native-flash-message";
+const dispatch = store.dispatch
 
 export const AboutMe = (props) => {
 
@@ -60,7 +60,7 @@ export const AboutMe = (props) => {
             childView={() => {
                 return (
 
-                    <View style={screenStyles.mainContainer}><FlashMessage position="top" />
+                    <View style={screenStyles.mainContainer}><FlashMessage floating={true} position="top" />
 
 
                         <KeyboardAwareScrollView
@@ -166,7 +166,7 @@ export const AboutMe = (props) => {
                                 onPress={() => {
                                     showMessage({
                                         message: "Your details has been updated ",
-                                        type: "info",
+                                        type: "danger",
                                       });
 
                                     setTimeout(()=>{
@@ -176,8 +176,13 @@ export const AboutMe = (props) => {
                                             "name": name,
                                             "email": email,
                                             "user_phone": phone
-                                }).then((Aboutme) => {
+                                            },{
+                                                headers: {
+                                                    userId: props.route.params.userid
+                                                }
+                                            }).then((Aboutme) => {
                                               console.log("Aboutme", Aboutme.data)
+                                              dispatch(commonActions.setPhone(phone))
                                               })
 
                                     },2000);

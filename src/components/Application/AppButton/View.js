@@ -2,8 +2,8 @@ import React from 'react';
 import {Button} from "react-native-elements";
 import {useColorScheme, View} from "react-native";
 import {useTheme} from "@react-navigation/native";
-import {commonDarkStyles} from "../../../../branding/boozemart/styles/dark/Style";
-import {commonLightStyles} from "../../../../branding/boozemart/styles/light/Style";
+import {commonDarkStyles} from "../../../../branding/Boozemart2/styles/dark/Style";
+import {commonLightStyles} from "../../../../branding/Boozemart2/styles/light/Style";
 import {Shadow} from "react-native-shadow-2";
 import {heightPercentageToDP as hp,widthPercentageToDP as wp} from "react-native-responsive-screen";
 
@@ -18,7 +18,7 @@ const AppButton = (props) => {
 
 
     //Props
-    const buttonStyle = {...props.buttonStyle, ...globalStyles.primaryButtonStyle};
+    const buttonStyle = {...globalStyles.primaryButtonStyle, ...props.buttonStyle};
     const primaryShadowStart = props.primaryShadowStart || colors.primaryShadowStart;
     const primaryShadowFinal = props.primaryShadowFinal || colors.primaryShadowFinal;
     const titleStyle = props.titleStyle || globalStyles.primaryButtonTextStyle;
@@ -38,7 +38,7 @@ const AppButton = (props) => {
                 offset={[0, 3]}
             >
                 <Button
-                    buttonStyle={{...buttonStyle, width: wp("85%")}}
+                    buttonStyle={{...buttonStyle, width: props.buttonWidth || wp("85%")}}
                     title={title}
                     disabled = {props.disabled}
                     titleStyle={titleStyle}
@@ -52,16 +52,16 @@ const AppButton = (props) => {
     )
 }
 
-AppButton.propTypes = {
+// AppButton.propTypes = {
 
-    title: PropTypes.string,
+//     title: PropTypes.string,
 
-    onPress: PropTypes.func.isRequired,
+//     onPress: PropTypes.func.isRequired,
 
-    buttonStyle: PropTypes.any,
+//     buttonStyle: PropTypes.any,
 
-    titleStyle: PropTypes.any,
-};
+//     titleStyle: PropTypes.any,
+// };
 
 export default AppButton;
 

@@ -3,10 +3,10 @@ import {TouchableOpacity, TouchableWithoutFeedback, useColorScheme, View} from "
 import {Styles} from "./Style"
 import Globals from "../../../utils/Globals";
 import {useTheme} from "@react-navigation/native";
-import {commonDarkStyles} from "../../../../branding/boozemart/styles/dark/Style";
-import {commonLightStyles} from "../../../../branding/boozemart/styles/light/Style";
+import {commonDarkStyles} from "../../../../branding/Boozemart2/styles/dark/Style";
+import {commonLightStyles} from "../../../../branding/Boozemart2/styles/light/Style";
 import {SvgIcon} from "../SvgIcon/View";
-import IconNames from "../../../../branding/boozemart/assets/IconNames";
+import IconNames from "../../../../branding/Boozemart2/assets/IconNames";
 
 
 export function Variant2BottomTabBar({state, descriptors, navigation}) {

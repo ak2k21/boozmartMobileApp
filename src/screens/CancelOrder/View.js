@@ -1,18 +1,18 @@
 import React, {useEffect, useState} from 'react';
-import {useColorScheme, View, Image, ScrollView} from "react-native";
+import {useColorScheme, View, Image, ScrollView, Modal, TouchableOpacity} from "react-native";
 import {Divider, Text} from 'react-native-elements';
 import {heightPercentageToDP as hp, widthPercentageToDP as wp} from 'react-native-responsive-screen';
-
 import BaseView from "../BaseView";
 import {Styles} from "./Styles";
 import AppButton from "../../components/Application/AppButton/View";
 import Routes from "../../navigation/Routes";
 import {StackActions, useTheme} from "@react-navigation/native";
-import Config from "../../../branding/boozemart/configuration/Config";
+import Config from "../../../branding/Boozemart2/configuration/Config";
 import {SvgIcon} from "../../components/Application/SvgIcon/View";
-import IconNames from "../../../branding/boozemart/assets/IconNames";
+import IconNames from "../../../branding/Boozemart2/assets/IconNames";
 import Axios from 'axios';
 import ApiUrls from '../../utils/ApiUrls';
+import Globals from '../../utils/Globals';
 
 export const CancelOrder = (props) => {
 
@@ -21,6 +21,7 @@ export const CancelOrder = (props) => {
     const {colors} = useTheme();
     const screenStyles = Styles(scheme, colors);
     const [order, setOrder] = useState({});
+    const [modalVisible, setModalVisible] = useState(false);
 
     useEffect(() => {
         Axios.get(ApiUrls.SERVICE_URL + ApiUrls.GET_ORDER_BY_ID_API+props.route.params.orderId).then((orderResp) => {
@@ -45,7 +46,11 @@ export const CancelOrder = (props) => {
                     <Text style={screenStyles.subtitleText}>{"Items: "}</Text>
                     <Text style={[
                         screenStyles.subtitleValueText
-                    ]}>{order.products_and_varients?JSON.parse(order.products_and_varients).reduce((total,item) => total+item.count,0):0}</Text>
+                    ]}>
+                        {order.products_and_varients && JSON.parse(order.products_and_varients).reduce((total, item) => { 
+                                        return total + Object.values(Object.values(item)[0]).reduce((val, elem) => val+elem,0)
+                                    }, 0)}
+                        </Text>
                     <Text style={screenStyles.subtitleText}>{"Total: "}</Text>
                     <Text style={screenStyles.subtitleValueText}>$ {(order.price_without_delivery || 0) + (order.delivery_charge || 0)}</Text>
                 </View>
@@ -153,32 +158,48 @@ export const CancelOrder = (props) => {
 
     const renderCartItems = (item, index) => {
             return (
-                <View
-                    key={index}
-                    style={[
-                        screenStyles.cartItemContainer,
-                        index !== order.products.length - 1 && {
-                            borderBottomWidth: 1,
-                            borderBottomColor: colors.borderColorLight,
-                        },
-                        index === 0 && screenStyles.cartTopBorder,
-                        index === order.products.length - 1 && screenStyles.cartBottomBorder,
-                        index === order.products.length - 1 && screenStyles.cartBottomMargin,
-                    ]}>
-                    <Image
-                        source={{uri: item.product_image}}
-                        style={screenStyles.cartItemLeftImage}
-                    />
-                    <View>
-
-                        <Text style={screenStyles.cartItemNameText}>{item.product_name}</Text>
-                        <Text style={screenStyles.cartItemWeightText}>{item.weight}</Text>
-                        <Text style={screenStyles.cartItemWeightText}>Count {item.cartCount}</Text>
-                    </View>
-
-                    <Text style={screenStyles.cartItemPriceText}>${item.price}</Text>
-
-                </View>
+                <>
+                {item.varient_info?.map((varientObj, varientIndex) => {
+                        return (
+                            <TouchableOpacity onPress={() => {
+                                props.navigation.navigate(
+                                    Routes.PRODUCT_DETAIL, {
+                                    item: { ...item.product_info, 
+                                        cartCount: 0,
+                                        VARIENTS: item.varient_info.map(varientItem => {
+                                            return {...varientItem, total_count:0} 
+                                        })
+                                    },
+                                    userid: props.route.params.userid
+                                })
+                            }}>
+                                <View
+                                    key={varientIndex+"OrderItem"}
+                                    style={{
+                                        ...screenStyles.cartItemContainer,
+                                        marginVertical: hp("0.5") 
+                                    }}>
+                                
+                                    <Image
+                                        source={{ uri: item.product_info.product_image }}
+                                        style={screenStyles.cartItemLeftImage}
+                                    />
+                                    <View>
+                                        <Text style={{ ...screenStyles.cartItemNameText, width: wp("55%") }}>{item.product_info.product_name}</Text>
+                                        <View style={{display: "flex", flexDirection: "row", gap: wp("4%")}}>
+                                            <View>
+                                                <Text style={screenStyles.cartItemWeightText}>{varientObj.quantity}</Text>
+                                                <Text style={screenStyles.cartItemWeightText}>Count {varientObj.total_count}</Text>
+                                            </View>
+                                        </View>
+                                    </View>
+                                    <Text style={screenStyles.cartItemPriceText} numberOfLines={1}>${varientObj.base_price}</Text>
+                                </View>
+                            </TouchableOpacity>
+                        ) 
+                    })
+                }
+            </>
             );
         };
 
@@ -186,48 +207,117 @@ export const CancelOrder = (props) => {
 
         <BaseView
             navigation={props.navigation}
-            title={"Cancel Order"}
+            title={"Order Details"}
             headerWithBack
             applyBottomSafeArea
             childView={() => {
-
                 return (
 
                     <View style={screenStyles.container}>
-                    <ScrollView showsVerticalScrollIndicator={false} style={{height: hp("20%")}}>
+                        <ScrollView showsVerticalScrollIndicator={false} style={{}}>
 
-                        <View style={screenStyles.upperContainer}>
-                            {renderOrderHeader()}
+                            <View style={screenStyles.upperContainer}>
+                                {renderOrderHeader()}
 
-                            {
-                                order.products && order.products.map((item, index) => {
-                                    return renderCartItems(item, index);
-                                })
-                            }
+                                {
+                                    order.products_info && order.products_info.map((item, index) => {
+                                        return renderCartItems(item, index);
+                                    })
+                                }
 
-                            {renderOrderContent()}
-                        </View>
+                                {renderOrderContent()}
+
+                                <View style={{marginVertical: hp("2%"),marginLeft: wp("3%"), display: "flex", flexDirection: "row", gap: wp("2%")}}>
+                                    <AppButton
+                                        style={{
+                                            marginHorizontal: 10
+                                        }}
+                                        buttonStyle={{
+                                            backgroundColor: "white",
+                                            shadowColor: "#ccc"
+                                        }}
+                                        titleStyle={{
+                                            color: "red"
+                                        }}
+                                        buttonWidth={ wp("35%")}
+                                        title={'Cancel Order'}
+                                        onPress={() => {
+                                            setModalVisible(!modalVisible)
+                                        }}
+                                    />
+
+                                    <AppButton
+                                        style={{
+                                            marginHorizontal: 10
+                                        }}
+                                        buttonWidth={ wp("35%")}
+                                        title={'Track Order'}
+                                        onPress={() => {
+                                            props.navigation.navigate(Routes.ORDER_TRACK, {
+                                                orderId: props.route.params.orderId,
+                                                userId: props.route.params.userId
+                                            });
+                                        }}
+                                    />
+                                </View>
+                            </View>
                         </ScrollView>
 
                         <View style={screenStyles.bottomContainer}>
-
-                            <AppButton
-                                title={'Cancel Order'}
-                                onPress={() => {
-                                    Axios.put(ApiUrls.SERVICE_URL+ApiUrls.PUT_ORDER_BY_ID_API+order.order_id,{
-                                        "status": "cancelled",
-                                        "isCancelled": true,
-                                        "order_cancelled_timestamp": new Date()
-                                    })
-                                    props.navigation.dispatch(
-                                        StackActions.replace(Config.SELECTED_VARIANT === Routes.INTRO_SCREEN1 ?
-                                            Routes.HOME_VARIANT1 : Config.SELECTED_VARIANT === Routes.INTRO_SCREEN2 ?
-                                                Routes.HOME_VARIANT2 :
-                                                Routes.HOME_VARIANT3)
-                                    );
-                                }}
-                            />
-
+                            <View style={screenStyles.centeredView}>
+                                <Modal
+                                    animationType="slide"
+                                    transparent={true}
+                                    visible={modalVisible}
+                                    onRequestClose={() => {
+                                        setModalVisible(!modalVisible);
+                                        setSaveCardRespReceived(true);
+                                    }}>
+                                        <View style={screenStyles.centeredView}>
+                                            <View style={screenStyles.modalView}>
+                                                <Text style={screenStyles.modalText}>Do you want to cancel the order #{order.order_id}?</Text>
+                                                <View style={{display: "flex", flexDirection: "row", gap: wp("2%")}}>
+                                                    <AppButton
+                                                        style={{
+                                                            marginHorizontal: 10
+                                                        }}
+                                                        buttonStyle={{
+                                                            backgroundColor: "white",
+                                                            shadowColor: "#ccc"
+                                                        }}
+                                                        titleStyle={{
+                                                            color: "red"
+                                                        }}
+                                                        buttonWidth={ wp("35%")}
+                                                        title={"Go Back"}
+                                                        onPress={() => {
+                                                            setModalVisible(!modalVisible)
+                                                        }}
+                                                    ></AppButton>
+                                                    <AppButton
+                                                        style={{
+                                                            marginHorizontal: 10
+                                                        }}
+                                                        buttonWidth={ wp("35%")}
+                                                        title={"Cancel Order"}
+                                                        onPress={() => {
+                                                            setModalVisible(!modalVisible)
+                                                            Axios.put(ApiUrls.SERVICE_URL+ApiUrls.PUT_ORDER_BY_ID_API+order.order_id,{
+                                                                "status": Globals.orderStatus.CANCELLED,
+                                                                "isCancelled": true,
+                                                                "order_cancelled_timestamp": new Date()
+                                                            })
+                                                            props.navigation.navigate(Routes.ORDER_CANCELLED, {
+                                                                orderId: props.route.params.orderId,
+                                                                userId: props.route.params.userId
+                                                            });
+                                                        }}
+                                                    ></AppButton>
+                                                </View>
+                                            </View>
+                                        </View>
+                                </Modal>
+                            </View>
                         </View>
                     </View>
 

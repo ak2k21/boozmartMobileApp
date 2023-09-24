@@ -6,7 +6,7 @@ import AppConfig from "../../../../branding/App_config";
 import Style from "./Styles"
 import {heightPercentageToDP as hp, widthPercentageToDP as wp} from "react-native-responsive-screen";
 import {SvgIcon} from "../../Application/SvgIcon/View";
-import IconNames from "../../../../branding/boozemart/assets/IconNames";
+import IconNames from "../../../../branding/Boozemart2/assets/IconNames";
 
 const PropTypes = require('prop-types');
 
@@ -113,34 +113,34 @@ export const TextInput = (props) => {
 }
 
 
-TextInput.propTypes = {
+// TextInput.propTypes = {
 
-    placeholder: PropTypes.string,
-    placeholderTextColor: PropTypes.string,
-    onChangeText: PropTypes.func.isRequired,
+//     placeholder: PropTypes.string,
+//     placeholderTextColor: PropTypes.string,
+//     onChangeText: PropTypes.func.isRequired,
 
-    containerStyle: ViewPropTypes.style,
-    disabled: PropTypes.bool,
-    disabledInputStyle: ViewPropTypes.style,
-    inputContainerStyle: ViewPropTypes.style,
-    errorMessage: PropTypes.string,
-    errorStyle: ViewPropTypes.style,
-    errorProps: PropTypes.any,
-    inputComponent: PropTypes.node,
-    inputStyle: ViewPropTypes.style,
-    label: PropTypes.any,
-    labelStyle: ViewPropTypes.style,
-    labelProps: PropTypes.any,
-    leftIcon: PropTypes.any,
-    leftIconContainerStyle: ViewPropTypes.style,
-    rightIconSource: PropTypes.any,
-    rightIconPress: PropTypes.func,
-    rightIconContainerStyle: ViewPropTypes.style,
-    isPasswordField: PropTypes.bool,
-    showPassword: PropTypes.bool,
-    value: PropTypes.string,
-    keyboardType: PropTypes.string
+//     containerStyle: ViewPropTypes.style,
+//     disabled: PropTypes.bool,
+//     disabledInputStyle: ViewPropTypes.style,
+//     inputContainerStyle: ViewPropTypes.style,
+//     errorMessage: PropTypes.string,
+//     errorStyle: ViewPropTypes.style,
+//     errorProps: PropTypes.any,
+//     inputComponent: PropTypes.node,
+//     inputStyle: ViewPropTypes.style,
+//     label: PropTypes.any,
+//     labelStyle: ViewPropTypes.style,
+//     labelProps: PropTypes.any,
+//     leftIcon: PropTypes.any,
+//     leftIconContainerStyle: ViewPropTypes.style,
+//     rightIconSource: PropTypes.any,
+//     rightIconPress: PropTypes.func,
+//     rightIconContainerStyle: ViewPropTypes.style,
+//     isPasswordField: PropTypes.bool,
+//     showPassword: PropTypes.bool,
+//     value: PropTypes.string,
+//     keyboardType: PropTypes.string
 
-};
+// };
 
 

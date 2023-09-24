@@ -23,7 +23,7 @@ export const Styles = function (colors) {
         },
 
         typeHeader: {
-            fontFamily: Fonts.RUBIK_MEDIUM,
+            
             fontSize: Typography.P1,
             color: colors.headingColor,
             marginTop: hp("3"),

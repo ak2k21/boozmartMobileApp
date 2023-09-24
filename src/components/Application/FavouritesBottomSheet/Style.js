@@ -33,7 +33,7 @@ export const Styles = function (scheme, colors) {
 
         headerTitle: {
             fontSize: Typography.P3,
-            fontFamily: fonts.RUBIK_MEDIUM,
+            
             color: colors.headingColor,
             marginLeft: wp(5),
         },
@@ -78,7 +78,7 @@ export const Styles = function (scheme, colors) {
 
         textListItem: {
             fontSize: Typography.P3,
-            fontFamily: fonts.RUBIK_MEDIUM,
+            
             color: colors.headingColor,
             paddingLeft: wp(5),
         },

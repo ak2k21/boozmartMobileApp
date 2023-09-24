@@ -2,25 +2,18 @@ import React, {useState, useEffect} from 'react';
 import {FlatList, Image, Text, TouchableHighlight, TouchableOpacity, useColorScheme, View,} from "react-native";
 import {Styles} from "./Styles";
 import AppConfig from "../../../../branding/App_config";
-import ApiUrls from "../../../utils/ApiUrls";
 import Utilities from "../../../utils/UtilityMethods";
 import Globals from "../../../utils/Globals";
 import {useTheme} from "@react-navigation/native";
-import {commonDarkStyles} from "../../../../branding/boozemart/styles/dark/Style";
-import {commonLightStyles} from "../../../../branding/boozemart/styles/light/Style";
+import {commonDarkStyles} from "../../../../branding/Boozemart2/styles/dark/Style";
+import {commonLightStyles} from "../../../../branding/Boozemart2/styles/light/Style";
 import {SvgIcon} from "../../../components/Application/SvgIcon/View";
-import IconNames from "../../../../branding/boozemart/assets/IconNames";
+import IconNames from "../../../../branding/Boozemart2/assets/IconNames";
 import Routes from "../../../navigation/Routes";
 import {FocusAwareStatusBar} from "../../../components/Application/FocusAwareStatusBar/FocusAwareStatusBar";
 import {heightPercentageToDP as hp, widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import BaseView from "../../BaseView"
-import Axios from 'axios';
-import {
-  GoogleSignin,
-  GoogleSigninButton,
-  statusCodes,
-} from '@react-native-google-signin/google-signin';
-import * as Keychain from 'react-native-keychain';
+import { useSelector } from 'react-redux';
 
 const assets = AppConfig.assets.default;
 
@@ -32,35 +25,12 @@ export const Variant3Profile = (props) => {
     const globalStyles = scheme === "dark" ? commonDarkStyles(colors) : commonLightStyles(colors);
     const screenStyles = Styles(globalStyles, scheme, colors);
 
-    const [userSettingInfo, setUserSettingInfo] = useState({});
-    const [userid, setUserid] = useState("");
-
-    useEffect(() => {
-        GoogleSignin.isSignedIn().then(isSignedIn => {
-            if(isSignedIn){
-                GoogleSignin.getCurrentUser().then(user => {
-                    setUserSettingInfo(user.user)
-                    Axios.get(ApiUrls.SERVICE_URL+ ApiUrls.GET_USER_SERACH_BY_KEYWORD + user.user.email).then((succResp) => {
-                         setUserid(succResp.data[0].id)
-                    })
-                });
-            } else {
-                Keychain.getGenericPassword().then(credentials => {
-                    if (credentials) {
-                        setUserid(credentials.username)
-                        Axios.get(ApiUrls.SERVICE_URL+ ApiUrls.GET_ADDRESS_USER_ID_API + credentials.username).then((succResp) => {
-                            console.log("data",succResp.data)
-                             setUserSettingInfo({
-                                name: succResp.data.name,
-                                photo: succResp.data.user_image,
-                                email: succResp.data.email
-                             })
-                        })
-                    }
-                })
-            }
-        });
-    },[])
+    const userSettingInfo = useSelector(state => {
+        return state.commonStore.userInfo.userGoogleData;
+    })
+    const userid = useSelector(state => {
+        return state.commonStore.userInfo.userId
+    })
 
     //Internal States
     const [profileImage, setProfileImage] = useState("");
@@ -100,7 +70,7 @@ export const Variant3Profile = (props) => {
                 <View style={screenStyles.mainContainer}>
                     <FocusAwareStatusBar translucent backgroundColor="transparent" barStyle="light-content"/>
 
-                    <View style={screenStyles.upperContainer}>
+                    {(userid != -1) && <View style={screenStyles.upperContainer}>
 
                         <View
                             style={screenStyles.profileImageContainer}>
@@ -131,9 +101,9 @@ export const Variant3Profile = (props) => {
                             <Text style={screenStyles.nameText}>{userSettingInfo.name}</Text>
                             <Text style={screenStyles.emailText}>{userSettingInfo.email}</Text>
                         </View>
-                    </View>
+                    </View>}
 
-                    <View style={[screenStyles.overlayContainer]}>
+                    {(userid != -1) && <View style={[screenStyles.overlayContainer]}>
 
                         <Text style={screenStyles.ordersText}>{"Orders"}</Text>
 
@@ -142,8 +112,8 @@ export const Variant3Profile = (props) => {
                             <TouchableHighlight
                                 onPress={() => {
                                     props.navigation.push(Routes.MY_ORDERS,{
-                                        orderType: "cancelled",
-                                        title: "Cancelled",
+                                        orderType: Globals.orderStatus.CANCELLED,
+                                        title: Globals.orderStatus.CANCELLED,
                                         userid: userid
                                     })
                                 }}
@@ -154,15 +124,15 @@ export const Variant3Profile = (props) => {
                                 <View style={{alignItems: "center"}}>
                                     <SvgIcon type={IconNames.WalletFull} width={25} height={25} color={colors.activeColor}/>
 
-                                    <Text style={screenStyles.nestedContainerText}>{"Cancelled"}</Text>
+                                    <Text style={screenStyles.nestedContainerText}>{Globals.orderStatus.CANCELLED}</Text>
                                 </View>
                             </TouchableHighlight>
 
-                            <TouchableHighlight
+                            {/* <TouchableHighlight
                                 onPress={() => {
                                     props.navigation.push(Routes.MY_ORDERS,{
-                                          orderType: "Pending",
-                                          title: "Pending",
+                                          orderType: Globals.orderStatus.PENDING,
+                                          title: Globals.orderStatus.PENDING,
                                           userid: userid
                                       })
                                 }}
@@ -173,15 +143,15 @@ export const Variant3Profile = (props) => {
                                 <View style={{alignItems: "center"}}>
                                     <SvgIcon type={IconNames.PendingFull} width={25} height={25} color={colors.activeColor}/>
 
-                                    <Text style={screenStyles.nestedContainerText}>{"Pending"}</Text>
+                                    <Text style={screenStyles.nestedContainerText}>{Globals.orderStatus.PENDING}</Text>
                                 </View>
-                            </TouchableHighlight>
+                            </TouchableHighlight> */}
 
                             <TouchableHighlight
                                 onPress={() => {
                                     props.navigation.push(Routes.MY_ORDERS,{
-                                          orderType: "Shipped",
-                                          title: "Shipped",
+                                          orderType: Globals.orderStatus.SHIPPED,
+                                          title: Globals.orderStatus.SHIPPED,
                                           userid: userid
                                       })
                                 }}
@@ -193,41 +163,64 @@ export const Variant3Profile = (props) => {
                                 <View style={{alignItems: "center"}}>
                                     <SvgIcon type={IconNames.ShippedFull} width={28} height={25} color={colors.activeColor}/>
 
-                                    <Text style={screenStyles.nestedContainerText}>{"Shipped"}</Text>
+                                    <Text style={screenStyles.nestedContainerText}>{Globals.orderStatus.SHIPPED}</Text>
 
                                 </View>
 
                             </TouchableHighlight>
 
-                          {/*  <TouchableHighlight
+                            <TouchableHighlight
                                 onPress={() => {
-                                    props.navigation.navigate(Routes.REVIEW_LIST)
-
+                                    props.navigation.push(Routes.MY_ORDERS,{
+                                          orderType: Globals.orderStatus.DELIVERED,
+                                          title: Globals.orderStatus.DELIVERED,
+                                          userid: userid
+                                      })
                                 }}
+
                                 underlayColor={colors.secondaryBackground}
                                 activeOpacity={0.5}
                                 style={screenStyles.nestedContainer}>
 
                                 <View style={{alignItems: "center"}}>
-                                    <SvgIcon type={IconNames.StarFull} width={25} height={25} color={colors.activeColor}/>
+                                    <SvgIcon type={IconNames.ShippedFull} width={28} height={25} color={colors.activeColor}/>
 
-                                    <Text style={screenStyles.nestedContainerText}>{"Reviews"}</Text>
+                                    <Text style={screenStyles.nestedContainerText}>{Globals.orderStatus.DELIVERED}</Text>
 
                                 </View>
 
-                            </TouchableHighlight> */}
+                            </TouchableHighlight>
 
                         </View>
 
-                    </View>
+                    </View>}
 
                     <View style={screenStyles.container}>
 
+                        {(userid == -1) && <View>
+                            <Text style = {{
+                                marginVertical: hp("10%"),
+                                textAlign:"center",
+                                fontSize:20,
+                                }}>Please Sign in to View/Update your account details</Text>
+                        </View>}
+                        
                         <FlatList
                             style={screenStyles.listingContainer}
                             data={Globals.profileList(props.navigation,userid)}
                             renderItem={({item, index}) => {
-                                return renderProfileListItem(item, index)
+                                if(userid == -1){
+                                    if(item.title == "Sign in" || 
+                                    item.title == "Notifications"){
+                                        return renderProfileListItem(item, index)
+                                    } else {
+                                        // do nothing
+                                    }
+                                } else {
+                                    if(item.title == "Sign in"){
+                                        // do nothing
+                                    } else return renderProfileListItem(item, index)
+                                }
                             }}
                             numColumns={2}
                             />

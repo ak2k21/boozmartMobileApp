@@ -7,9 +7,9 @@ import AppConfig from "../../../../branding/App_config";
 import Easing from "react-native/Libraries/Animated/Easing";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import {useTheme} from "@react-navigation/native";
-import {commonDarkStyles} from "../../../../branding/boozemart/styles/dark/Style";
-import {commonLightStyles} from "../../../../branding/boozemart/styles/light/Style";
-import IconNames from "../../../../branding/boozemart/assets/IconNames";
+import {commonDarkStyles} from "../../../../branding/Boozemart2/styles/dark/Style";
+import {commonLightStyles} from "../../../../branding/Boozemart2/styles/light/Style";
+import IconNames from "../../../../branding/Boozemart2/assets/IconNames";
 import {SvgIcon} from "../SvgIcon/View";
 import Axios from 'axios';
 import ApiUrls from '../../../utils/ApiUrls';
@@ -119,24 +119,6 @@ export const CardItem = (props) => {
             icon = assets.paypal_coloured_icon;
         }
 
-
-        const spin = item.spinValue.interpolate({
-            inputRange: [0, 1],
-            outputRange: ['0deg', '180deg']
-        });
-
-        if (isActive) {
-            Animated.timing(
-                item.spinValue,
-                activeAnimConfig
-            ).start()
-        } else {
-            Animated.timing(
-                item.spinValue,
-                deActiveAnimConfig
-            ).start()
-        }
-
         return <View style={itemStyles.childContainer}>
             {item.isDefault && <View style={itemStyles.defaultContainer}>
                 <Text style={globalStyles.promotionalTextStyle}>{"DEFAULT"}</Text>
@@ -191,17 +173,6 @@ export const CardItem = (props) => {
                 </View>
             }
 
-
-            {
-                showAnimatedIcon &&
-                <View style={itemStyles.rightIconContainer}>
-                    <Animated.Image source={assets.drop_down_icon} style={[
-                        {transform: [{rotate: spin}]},
-                        itemStyles.rightIcon
-                    ]} resizeMode={"contain"}/>
-                </View>
-            }
-
         </View>
     }
 
@@ -212,16 +183,16 @@ export const CardItem = (props) => {
 
 }
 
-CardItem.propTypes = {
+// CardItem.propTypes = {
 
-    isTouchable: PropTypes.bool,
-    isActive: PropTypes.bool,
-    item: PropTypes.any,
-    onPress: PropTypes.func,
-    showActiveIcon: PropTypes.bool,
-    showAnimatedIcon: PropTypes.bool,
+//     isTouchable: PropTypes.bool,
+//     isActive: PropTypes.bool,
+//     item: PropTypes.any,
+//     onPress: PropTypes.func,
+//     showActiveIcon: PropTypes.bool,
+//     showAnimatedIcon: PropTypes.bool,
 
-};
+// };
 
 CardItem.defaultProps = {
     isTouchable: true,

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import {useColorScheme, View} from "react-native";
 import {Text} from "react-native-elements";
 
@@ -10,9 +10,9 @@ import {CustomSwitch} from "../../components/Global/CustomSwitch/View";
 import AppButton from "../../components/Application/AppButton/View";
 import {useTheme} from "@react-navigation/native";
 import {Styles} from "./Styles";
-import {commonDarkStyles} from "../../../branding/boozemart/styles/dark/Style";
-import {commonLightStyles} from "../../../branding/boozemart/styles/light/Style";
-import IconNames from "../../../branding/boozemart/assets/IconNames";
+import {commonDarkStyles} from "../../../branding/Boozemart2/styles/dark/Style";
+import {commonLightStyles} from "../../../branding/Boozemart2/styles/light/Style";
+import IconNames from "../../../branding/Boozemart2/assets/IconNames";
 import {widthPercentageToDP as wp} from "react-native-responsive-screen";
 import {CreditCard} from "../../components/Application/CreditCard/View";
 import creditcardutils from "creditcardutils";
@@ -45,6 +45,7 @@ export const UpdateCreditCard = (props) => {
     const [cardNumber, setCardNumber] = useState(props.route.params.creditcards.card_Number);
     const [expiry, setExpiry] = useState(props.route.params.creditcards.expires_on);
     const [cvv, setCVV] = useState(props.route.params.creditcards.cvv);
+    const [showError, setShowError] = useState(false);
 
     const updateCreditCards = async () => {
                return Axios.put(ApiUrls.SERVICE_URL + ApiUrls.PUT_CREDIT_CARD+cardNumber, {
@@ -70,7 +71,7 @@ export const UpdateCreditCard = (props) => {
             childView={() => {
 
                 return (
-                        <><FlashMessage position="top" />
+                        <><FlashMessage floating={true} position="top" />
                     <View style={screenStyles.mainContainer}>
 
                         <KeyboardAwareScrollView
@@ -93,24 +94,30 @@ export const UpdateCreditCard = (props) => {
                                     fontSize={20}
                                 />
 
+                                <Text style={{fontWeight: "bold", marginTop: hp(2)}}>Cardholder Name</Text>
                                 <AppInput
                                     textInputRef={r => (inputRef = r)}
                                     {...globalStyles.secondaryInputStyle}
                                     leftIcon={IconNames.CircleUser}
                                     placeholder={" "}
-                                    containerStyle={screenStyles.cardHolderInputContainer}
                                     value={name}
-                                    errorMessage={name==""?"Please enter Name":""}
+                                    errorMessage={(showError && name=="")?"Please enter Name":""}
                                     errorStyle={{
                                          position: "absolute",
                                          top: hp("1"),
                                          right:0
                                     }}
                                     onChangeText={(name) => {
+                                        if(!name){
+                                            setShowError(true)
+                                        } else {
+                                            setShowError(false)
+                                        }
                                         setName(name);
                                     }}
                                 />
 
+                                <Text style={{fontWeight: "bold", marginTop: hp(1)}}>Card Number</Text>
                                 <AppInput
                                     textInputRef={r => (inputRef = r)}
                                     {...globalStyles.secondaryInputStyle}
@@ -119,76 +126,89 @@ export const UpdateCreditCard = (props) => {
                                     keyboardType={"number-pad"}
                                     placeholder={" "}
                                     value={cardNumber}
-                                    errorMessage={cardNumber==""?"Please enter Card Number":""}
+                                    errorMessage={(showError && cardNumber=="")?"Please enter Card Number":""}
                                     errorStyle={{
                                          position: "absolute",
                                          top: hp("1"),
                                          right:0
                                     }}
                                     onChangeText={(cardNumber) => {
-
+                                        if(!cardNumber){
+                                            setShowError(true)
+                                        } else {
+                                            setShowError(false)
+                                        }
                                         setCardNumber(cardNumber);
 
                                     }}
                                 />
 
                                 <View style={screenStyles.horizontalInputsContainer}>
+                                    <View style={{width: wp("40%")}}>
+                                        <Text style={{fontWeight: "bold", marginTop: hp(1)}}>Expiry Date</Text>
+                                        <AppInput
+                                            textInputRef={r => (inputRef = r)}
+                                            {...globalStyles.secondaryInputStyle}
+                                            leftIcon={IconNames.Calendar}
+                                            placeholder={" "}
+                                            maxLength={7}
+                                            keyboardType={"number-pad"}
+                                            containerStyle={screenStyles.horizontalInput}
+                                            value={expiry}
+                                            errorMessage={(showError && expiry=="")?"Please enter Expiry Date":""}
+                                            errorStyle={{
+                                                position: "absolute",
+                                                top: hp("3.5"),
+                                                right:0
+                                            }}
+                                            onChangeText={(expiry) => {
+                                                if(!expiry){
+                                                    setShowError(true)
+                                                } else {
+                                                    setShowError(false)
+                                                }
+                                                setExpiry(creditcardutils.formatCardExpiry(expiry));
+                                            }}
+                                        />
+                                    </View>
 
-                                    <AppInput
-                                        textInputRef={r => (inputRef = r)}
-                                        {...globalStyles.secondaryInputStyle}
-                                        leftIcon={IconNames.Calendar}
-                                        placeholder={" "}
-                                        maxLength={7}
-                                        keyboardType={"number-pad"}
-                                        containerStyle={screenStyles.horizontalInput}
-                                        value={expiry}
-                                        errorMessage={expiry==""?"Please enter Expiry Date":""}
-                                        errorStyle={{
-                                             position: "absolute",
-                                             top: hp("3.5"),
-                                             right:0
-                                        }}
-                                        onChangeText={(expiry) => {
-                                            setExpiry(creditcardutils.formatCardExpiry(expiry));
-                                        }}
-                                    />
-
-                                    <AppInput
-                                        textInputRef={r => (inputRef = r)}
-                                        {...globalStyles.secondaryInputStyle}
-                                        leftIcon={IconNames.LockKeyhole}
-                                        placeholder={" "}
-                                        maxLength={3}
-                                        keyboardType={"number-pad"}
-                                        containerStyle={screenStyles.horizontalInput}
-                                        value={cvv}
-                                        errorMessage={cvv==""?"Please enter CVV":""}
-                                        errorStyle={{
-                                             position: "absolute",
-                                             top: hp("3.5"),
-                                             right:0
-                                        }}
-                                        onChangeText={(cvv) => {
-                                            setCVV(cvv);
-                                        }}
-                                    />
-
+                                    <View style={{width: wp("40%")}}>
+                                        <Text style={{fontWeight: "bold", marginTop: hp(1)}}>CVV</Text>
+                                        <AppInput
+                                            textInputRef={r => (inputRef = r)}
+                                            {...globalStyles.secondaryInputStyle}
+                                            leftIcon={IconNames.LockKeyhole}
+                                            placeholder={" "}
+                                            maxLength={3}
+                                            keyboardType={"number-pad"}
+                                            containerStyle={screenStyles.horizontalInput}
+                                            value={cvv}
+                                            errorMessage={(showError && cvv=="")?"Please enter CVV":""}
+                                            errorStyle={{
+                                                position: "absolute",
+                                                top: hp("3.5"),
+                                                right:0
+                                            }}
+                                            onChangeText={(cvv) => {
+                                                if(!cvv){
+                                                    setShowError(true)
+                                                } else {
+                                                    setShowError(false)
+                                                }
+                                                setCVV(cvv);
+                                            }}
+                                        />
+                                    </View>
                                 </View>
 
-                                <View style={screenStyles.switchContainer}>
-
+                                {/* <View style={screenStyles.switchContainer}>
                                     <CustomSwitch
                                         initialValue={false}
                                         onValueChange={(value) => {
-
                                         }}
                                     />
-
                                     <Text style={screenStyles.defaultText}>{"Make Default"}</Text>
-                                   
-                                </View>
-
+                                </View> */}
                             </View>
 
                         </KeyboardAwareScrollView>
@@ -198,11 +218,11 @@ export const UpdateCreditCard = (props) => {
                             <AppButton
                                 title={"Update Credit Card"}
                                 onPress={() => {
-                                    if(company !== "" && name !== "" && cardNumber !== "" && expiry !== "" && cvv !== ""){
+                                    if(name && cardNumber && expiry && cvv){
                                         updateCreditCards().then((resp) => {
                                             showMessage({
-                                                message: "Credit-card details has been updated",
-                                                type: "info",
+                                                message: "Credit-card details have been updated",
+                                                type: "danger",
                                               });
                                           setTimeout(() =>{
                                                   props.navigation.push(Routes.My_CREDIT_CARDS, {
@@ -211,6 +231,9 @@ export const UpdateCreditCard = (props) => {
                                               },2000);
                                         })
                                     }
+                                        else{
+                                            setShowError(true)
+                                        }
                                 }}
                             />
 

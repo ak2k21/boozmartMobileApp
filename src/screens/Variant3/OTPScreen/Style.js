@@ -35,7 +35,7 @@ export const Styles = function (styles, darkColors, lightColors) {
         },
 
         titleText: {
-            fontFamily: fonts.RUBIK_MEDIUM,
+            
             fontSize: Typography.H8,
             marginBottom: hp("0.5"),
             color: lightColors.headingColor,
@@ -71,7 +71,7 @@ export const Styles = function (styles, darkColors, lightColors) {
 
         signupButton: {
             color: lightColors.headingColor,
-            fontFamily: fonts.RUBIK_MEDIUM,
+            
             fontSize: Typography.P4,
 
         },

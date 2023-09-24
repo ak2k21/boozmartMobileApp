@@ -71,17 +71,15 @@ export const Styles = function (styles, scheme, colors) {
         },
 
         nameText: {
-            fontFamily: Fonts.RUBIK_MEDIUM,
+            
             fontSize: Typography.P1,
             color: colors.black,
-            fontWeight: "bold"
         },
 
         emailText: {
             fontFamily: Fonts.RUBIK_REGULAR,
             fontSize: Typography.P5,
-            color: colors.black,
-            fontWeight: "bold"
+            color: colors.black
         },
 
         overlayContainer: {
@@ -92,7 +90,7 @@ export const Styles = function (styles, scheme, colors) {
             alignSelf: "center",
             justifyContent: "center",
             borderRadius: hp(0.5),
-            shadowOffset: { width: -10, height: 10 },
+            shadowOffset: { width: -2, height: 2 },
               shadowColor: 'black',
               shadowOpacity: 1,
               elevation: 3,
@@ -101,7 +99,7 @@ export const Styles = function (styles, scheme, colors) {
         },
 
         ordersText: {
-            fontFamily: Fonts.RUBIK_MEDIUM,
+            
             fontSize: Typography.P3,
             color: colors.headingColor,
             marginLeft: hp(1)
@@ -129,8 +127,7 @@ export const Styles = function (styles, scheme, colors) {
             fontFamily: Fonts.RUBIK_REGULAR,
             fontSize: Typography.P6,
             color: colors.subHeadingColor,
-            marginTop: hp(1.5),
-            fontWeight: "bold"
+            marginTop: hp(1.5)
         },
 
         cardListContainer: {
@@ -184,7 +181,7 @@ export const Styles = function (styles, scheme, colors) {
             width: wp("40%"),
             marginVertical: hp("0.5"),
             borderRadius: 5,
-            shadowOffset: { width: -10, height: 10 },
+            shadowOffset: { width: -2, height: 2 },
               shadowColor: 'black',
               shadowOpacity: 1,
               elevation: 3,
@@ -199,8 +196,7 @@ export const Styles = function (styles, scheme, colors) {
         profileListingItemText: {
             fontFamily: Fonts.RUBIK_REGULAR,
             fontSize: Typography.P3,
-            color: colors.subHeadingColor,
-            fontWeight: "bold"
+            color: colors.subHeadingColor
         },
 
         profileListingItemRightContainer: {

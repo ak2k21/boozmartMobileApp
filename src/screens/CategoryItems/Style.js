@@ -27,7 +27,7 @@ export const Styles = function (styles, colors) {
         },
 
         sectionHeadingText: {
-            fontFamily: Fonts.RUBIK_MEDIUM,
+            
             fontSize: Typography.P2,
             color: colors.headingColor
         },

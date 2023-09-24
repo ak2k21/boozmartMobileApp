@@ -8,10 +8,10 @@ import {Styles} from "./Style"
 import Easing from "react-native/Libraries/Animated/Easing";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import {useTheme} from "@react-navigation/native";
-import {commonDarkStyles} from "../../../../branding/boozemart/styles/dark/Style";
-import {commonLightStyles} from "../../../../branding/boozemart/styles/light/Style";
+import {commonDarkStyles} from "../../../../branding/Boozemart2/styles/dark/Style";
+import {commonLightStyles} from "../../../../branding/Boozemart2/styles/light/Style";
 import {SvgIcon} from "../SvgIcon/View";
-import IconNames from "../../../../branding/boozemart/assets/IconNames";
+import IconNames from "../../../../branding/Boozemart2/assets/IconNames";
 import Axios from 'axios';
 import ApiUrls from '../../../utils/ApiUrls';
 
@@ -118,24 +118,6 @@ export const AddressItem = (props) => {
     }
 
     const child = () => {
-
-        const spin = item.spinValue.interpolate({
-            inputRange: [0, 1],
-            outputRange: ['0deg', '180deg']
-        });
-
-        if (isActive) {
-            Animated.timing(
-                item.spinValue,
-                activeAnimConfig
-            ).start()
-        } else {
-            Animated.timing(
-                item.spinValue,
-                deActiveAnimConfig
-            ).start()
-        }
-
         return <View style={itemStyles.childContainer}>
             {item.isDefault &&
                 <View style={itemStyles.defaultContainer}>
@@ -152,7 +134,7 @@ export const AddressItem = (props) => {
 
                 <View>
                     <Text style={itemStyles.titleText}>{item.receiver_name || ""}</Text>
-                    <Text style={itemStyles.addressText} numberOfLines={2}>{(item.house_no || "") + " " + (item.landmark || "")+" " +(item.city || "") + " " +(item.state || "")}</Text>
+                    <Text style={itemStyles.addressText} numberOfLines={2}>{(item.city || "") + " " + (item.society || "") + " " + (item.state || "") + " " + (item.pincode || "")}</Text>
                     <Text style={itemStyles.contactText}>{item.receiver_phone || ""}</Text>
 
                 </View>
@@ -165,17 +147,6 @@ export const AddressItem = (props) => {
                     <SvgIcon type={IconNames.CheckCircle} width={22} height={22} color={colors.activeColor}/>
                 </View>
             }
-
-
-            {
-                showAnimatedIcon &&
-                <View style={itemStyles.rightIconContainer}>
-                    <Animated.Image source={assets.drop_down_icon} style={[
-                        {transform: [{rotate: spin}]},
-                        itemStyles.rightIcon
-                    ]} resizeMode={"contain"}/>
-                </View>
-            }
         </View>
     }
 
@@ -185,15 +156,15 @@ export const AddressItem = (props) => {
 
 }
 
-AddressItem.propTypes = {
-    isTouchable: PropTypes.bool,
-    isActive: PropTypes.bool,
-    item: PropTypes.any,
-    onPress: PropTypes.func,
-    showActiveIcon: PropTypes.bool,
-    showAnimatedIcon: PropTypes.bool,
+// AddressItem.propTypes = {
+//     isTouchable: PropTypes.bool,
+//     isActive: PropTypes.bool,
+//     item: PropTypes.any,
+//     onPress: PropTypes.func,
+//     showActiveIcon: PropTypes.bool,
+//     showAnimatedIcon: PropTypes.bool,
 
-};
+// };
 
 AddressItem.defaultProps = {
     isTouchable: true,

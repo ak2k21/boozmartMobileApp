@@ -3,7 +3,7 @@ import {useColorScheme, View} from "react-native";
 import {Styles} from "./Style";
 import {useTheme} from "@react-navigation/native";
 import AppInput from "../AppInput/View";
-import IconNames from "../../../../branding/boozemart/assets/IconNames";
+import IconNames from "../../../../branding/Boozemart2/assets/IconNames";
 import {heightPercentageToDP as hp} from "react-native-responsive-screen";
 import {CustomSwitch} from "../../Global/CustomSwitch/View";
 import {Text} from "react-native-elements";

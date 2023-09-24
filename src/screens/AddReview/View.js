@@ -9,9 +9,9 @@ import {Styles} from "./Styles";
 import StarRating from "react-native-star-rating";
 import AppButton from "../../components/Application/AppButton/View";
 import {useTheme} from "@react-navigation/native";
-import {commonDarkStyles} from "../../../branding/boozemart/styles/dark/Style";
-import {commonLightStyles} from "../../../branding/boozemart/styles/light/Style";
-import IconNames from "../../../branding/boozemart/assets/IconNames";
+import {commonDarkStyles} from "../../../branding/Boozemart2/styles/dark/Style";
+import {commonLightStyles} from "../../../branding/Boozemart2/styles/light/Style";
+import IconNames from "../../../branding/Boozemart2/assets/IconNames";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scrollview";
 
 export const AddReview = (props) => {

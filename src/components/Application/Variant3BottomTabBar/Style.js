@@ -30,7 +30,6 @@ export const Styles = function (styles, scheme, colors) {
 
         bottomTabText: {
             fontSize: Typography.P4,
-            fontWeight: "bold"
         },
 
     }

@@ -2,10 +2,12 @@ class ApiUrls {
 //    static SERVICE_LOCAL_HOST = "192.168.0.178";
 //    static SERVICE_DEV_HOST = "http://ec2-13-233-198-72.ap-south-1.compute.amazonaws.com";
 
-    static SERVICE_URL =  'http://ec2-43-204-114-19.ap-south-1.compute.amazonaws.com:8045'
+    static SERVICE_URL =  'http://ec2-3-111-196-202.ap-south-1.compute.amazonaws.com:8045'
     static GET_ORDER_BY_ID_API = "/order/"
+    static GET_RECENT_ORDER = "/order/all?items_per_page=1&page_number=1"
     static PUT_ORDER_BY_ID_API = "/order/"
     static GET_PRODUCTS_FOODITEMS_API = "/products"
+    static GET_PRODUCT_API = "/product/"
     static GET_SCOTCH_PRODUCT_BY_CATEGORY_ID_API = "/product/category/24?items_per_page=15&page_number=2"
     static GET_PROMOTIONAL_PRODUCTS_API = "/promotional-products/promotionalProducts"
     static GET_CATEGORY_LIST_API = "/readCategory"
@@ -41,7 +43,7 @@ class ApiUrls {
     static POST_ADD_FAVOUITES_API = "/favourites/add--Fav"
     static DELETE_FAVOUITES_BY_USERID_AND_PRODUCTID_API = "/favourites/DelFavBy_UserId_and_ProductId"
     static DELETE_CART_API = "/cart/"
-    static DELETE_RECENT_SEARCH_API = "/recentSearch/clearSearch/1"
+    static DELETE_RECENT_SEARCH_API = "/recentSearch/clearSearch/"
     static DELETE_ADDRESS_ID_API = "/address/"
     static DELETE_FROM_CREDITCARD_API = "/credit-card/delete-credit-card/"
     static GET_BRANDS_API = "/readBrand"
@@ -53,6 +55,11 @@ class ApiUrls {
     static VERIFY_JWT = "/user/verifyJWT"
     static PUT_CREDIT_CARD = "/credit-card/credit-card-update/"
     static GET_USER_ORDER_PRODUCTS = "/order/recent5OrderdProductsOfUser/"
+    static SAVE_FOR_LATER = "/saved-products/addSavedProduct"
+    static GET_SAVED_PRODUCTS = "/saved-products/SavedProductsDetails/"
+    static DELETE_SAVED_PRODUCT = "/saved-products/DeleteSavedProductBy_UserId_and_ProductId"
+    static UPDATE_DEFAULT_ADDRESS = "/address/UpdateDefaultAddress/"
+    static UPDATE_DEFAULT_CREDIT_CARD = "/credit-card/UpdateDefaultCard/"
 }
 
 export default ApiUrls;

@@ -72,7 +72,7 @@ export const Styles = function (scheme, colors) {
 
         titleText: {
             fontSize: Typography.P3,
-            fontFamily: fonts.RUBIK_MEDIUM,
+            
             color: colors.headingColor
         },
 
@@ -87,7 +87,7 @@ export const Styles = function (scheme, colors) {
 
         contactText: {
             fontSize: Typography.P5,
-            fontFamily: fonts.RUBIK_MEDIUM,
+            
             marginRight: wp("5"),
             color: colors.headingColor
         },

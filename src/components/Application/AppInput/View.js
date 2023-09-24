@@ -3,8 +3,8 @@ import {heightPercentageToDP as hp} from "react-native-responsive-screen";
 import {TextInput} from "../../Global/TextInput/View";
 import {useColorScheme} from "react-native";
 import {useTheme} from "@react-navigation/native";
-import {commonDarkStyles} from "../../../../branding/boozemart/styles/dark/Style";
-import {commonLightStyles} from "../../../../branding/boozemart/styles/light/Style";
+import {commonDarkStyles} from "../../../../branding/Boozemart2/styles/dark/Style";
+import {commonLightStyles} from "../../../../branding/Boozemart2/styles/light/Style";
 import {SvgIcon} from "../SvgIcon/View";
 
 const PropTypes = require('prop-types');
@@ -71,27 +71,27 @@ const AppInput = (props) => {
     )
 }
 
-AppInput.propTypes = {
+// AppInput.propTypes = {
 
-    placeholder: PropTypes.string,
-    placeholderTextColor: PropTypes.string,
+//     placeholder: PropTypes.string,
+//     placeholderTextColor: PropTypes.string,
 
-    value: PropTypes.string,
-    containerStyle: PropTypes.any,
+//     value: PropTypes.string,
+//     containerStyle: PropTypes.any,
 
-    showLeftIcon: PropTypes.bool,
-    leftIcon: PropTypes.string,
-    leftIconColor: PropTypes.string,
+//     showLeftIcon: PropTypes.bool,
+//     leftIcon: PropTypes.string,
+//     leftIconColor: PropTypes.string,
 
-    backgroundColor: PropTypes.string,
+//     backgroundColor: PropTypes.string,
 
-    onChangeText: PropTypes.func.isRequired,
+//     onChangeText: PropTypes.func.isRequired,
 
-    isPasswordField: PropTypes.bool,
+//     isPasswordField: PropTypes.bool,
 
-    multilineInput: PropTypes.bool,
+//     multilineInput: PropTypes.bool,
 
-    keyboardType: PropTypes.string
-};
+//     keyboardType: PropTypes.string
+// };
 
 export default AppInput;

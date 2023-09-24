@@ -10,9 +10,9 @@ import AppHeader from "../../../components/Application/AppHeader/View"
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scrollview";
 import {CustomSwitch} from "../../../components/Global/CustomSwitch/View";
 import AppButton from "../../../components/Application/AppButton/View";
-import {commonDarkStyles} from "../../../../branding/boozemart/styles/dark/Style";
-import {commonLightStyles} from "../../../../branding/boozemart/styles/light/Style";
-import IconNames from "../../../../branding/boozemart/assets/IconNames";
+import {commonDarkStyles} from "../../../../branding/Boozemart2/styles/dark/Style";
+import {commonLightStyles} from "../../../../branding/Boozemart2/styles/light/Style";
+import IconNames from "../../../../branding/Boozemart2/assets/IconNames";
 import {FocusAwareStatusBar} from "../../../components/Application/FocusAwareStatusBar/FocusAwareStatusBar";
 
 

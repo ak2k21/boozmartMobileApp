@@ -11,17 +11,21 @@ export const Styles = function (scheme, styles, colors) {
     return {
         container: {
             flex: 1,
-            alignItems: "center"
+            alignItems: "center",
+            height: hp("90%")
         },
 
         baseViewChildContainerStyle: {
             flex: 1,
+            height: hp("95%")
         },
 
         listContainer: {
             flex: 0.55,
             width: styles.gridWidth,
-            paddingTop: hp("2")
+            paddingTop: hp("2"),
+            height: hp("85%"),
+            paddingBottom: hp("2%")
         },
 
         cardContainer: {
@@ -54,7 +58,7 @@ export const Styles = function (scheme, styles, colors) {
             flex: 0.60,
             // marginBottom: hp(2),
             justifyContent: "center",
-            marginBottom: hp(3),
+            marginBottom: hp(1),
         },
 
         bottomButtonContainer: {
@@ -73,18 +77,18 @@ export const Styles = function (scheme, styles, colors) {
             width: "100%",
             height: 1,
             alignSelf: "center",
-            marginVertical: hp("1"),
+            marginVertical: hp("0.7"),
             backgroundColor: colors.borderColorLight
         },
 
         boldLabelText: {
-            fontFamily: Fonts.RUBIK_MEDIUM,
+            
             fontSize: Typography.P4,
             color: colors.headingColor
         },
 
         boldLabelValueText: {
-            fontFamily: Fonts.RUBIK_MEDIUM,
+            
             fontSize: Typography.P4,
             flex: 1,
             textAlign: "right",
@@ -95,7 +99,7 @@ export const Styles = function (scheme, styles, colors) {
             fontFamily: Fonts.RUBIK_REGULAR,
             fontSize: Typography.P6,
             color: colors.subHeadingColor,
-            marginTop: hp(1),
+            marginTop: hp(0.8),
         },
 
         normalLabelValueText: {
@@ -138,7 +142,7 @@ export const Styles = function (scheme, styles, colors) {
 
         cartItemNameText: {
             fontSize: Typography.P3,
-            fontFamily: Fonts.RUBIK_MEDIUM,
+            
             color: colors.headingColor,
             marginBottom: hp(0.5)
         },
@@ -153,7 +157,7 @@ export const Styles = function (scheme, styles, colors) {
             flex: 1,
             textAlign: "right",
             fontSize: Typography.P5,
-            fontFamily: Fonts.RUBIK_MEDIUM,
+            width: wp("15%"),
             color: colors.activeColor,
             marginRight: wp(5)
         },
@@ -184,16 +188,35 @@ export const Styles = function (scheme, styles, colors) {
             color: colors.subHeadingColor,
         },
         totalLabelText: {
-            fontFamily: Fonts.RUBIK_MEDIUM,
+            
             fontSize: Typography.P4,
             color: colors.headingColor
         },
         totalValueText: {
-            fontFamily: Fonts.RUBIK_MEDIUM,
+            
             fontSize: Typography.P4,
             flex: 1,
             textAlign: "right",
             color: colors.subHeadingSecondaryColor
+        },
+        cartUpdateContainer: {
+            height: "100%",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center"
+        },
+
+        cartUpdateActionContainer: {
+            flex: 0.3,
+            justifyContent: "center",
+            alignItems: "center",
+            borderColor: colors.borderColorLight,
+            height: "100%"
+        },
+
+        cartNumberText: {
+            
+            color: colors.headingColor
         }
     }
 

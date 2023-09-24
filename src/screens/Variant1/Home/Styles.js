@@ -36,7 +36,7 @@ export const Styles = function (styles, scheme, colors) {
         },
 
         sectionHeadingText: {
-            fontFamily: fonts.RUBIK_MEDIUM,
+            
             fontSize: Typography.P2,
             color: colors.headingColor
         },

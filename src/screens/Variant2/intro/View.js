@@ -8,8 +8,8 @@ import {StackActions, useTheme} from "@react-navigation/native";
 import {Styles} from "./Style"
 import Globals from "../../../utils/Globals";
 import AppButton from "../../../components/Application/AppButton/View";
-import {commonDarkStyles} from "../../../../branding/boozemart/styles/dark/Style";
-import {commonLightStyles} from "../../../../branding/boozemart/styles/light/Style";
+import {commonDarkStyles} from "../../../../branding/Boozemart2/styles/dark/Style";
+import {commonLightStyles} from "../../../../branding/Boozemart2/styles/light/Style";
 import {CircularBanner} from "../../../components/Application/CicularBanner/View";
 import {FocusAwareStatusBar} from "../../../components/Application/FocusAwareStatusBar/FocusAwareStatusBar";
 

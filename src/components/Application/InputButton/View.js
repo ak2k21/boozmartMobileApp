@@ -2,8 +2,8 @@ import React from "react";
 import {Text, TouchableOpacity, useColorScheme} from "react-native";
 import {Styles} from "./Styles";
 import {useTheme} from "@react-navigation/native";
-import {commonDarkStyles} from "../../../../branding/boozemart/styles/dark/Style";
-import {commonLightStyles} from "../../../../branding/boozemart/styles/light/Style";
+import {commonDarkStyles} from "../../../../branding/Boozemart2/styles/dark/Style";
+import {commonLightStyles} from "../../../../branding/Boozemart2/styles/light/Style";
 import {SvgIcon} from "../SvgIcon/View";
 
 export const InputButton = (props) => {

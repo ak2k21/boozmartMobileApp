@@ -2,56 +2,30 @@ import React, {useRef, useState, useEffect} from "react";
 import {Image, ScrollView, useColorScheme, View, FlatList, TouchableOpacity, ActivityIndicator} from "react-native";
 import {heightPercentageToDP as hp, widthPercentageToDP as wp} from "react-native-responsive-screen";
 import {Styles} from "./Styles";
-import Globals from "../../utils/Globals";
 import ApiUrls from "../../utils/ApiUrls";
 import {FoodItem} from "../../components/Application/FoodItem/View";
 import {Text} from "react-native-elements";
 import BaseView from "../BaseView";
-import Accordion from "react-native-collapsible/Accordion";
-//import {FavouritesBottomSheet} from "../../components/Application/FavouritesBottomSheet/View";
-import RBSheet from "react-native-raw-bottom-sheet";
-import {FavouriteItem} from "../../components/Application/FavouriteItem/View";
-import AppButton from "../../components/Application/AppButton/View";
 import Routes from "../../navigation/Routes";
 import {useTheme} from "@react-navigation/native";
-import IconNames from "../../../branding/boozemart/assets/IconNames";
+import IconNames from "../../../branding/Boozemart2/assets/IconNames";
 import {ReorderItem} from "../../components/Application/ReorderItem/View";
 import {SvgIcon} from "../../components/Application/SvgIcon/View";
-import {commonDarkStyles} from "../../../branding/boozemart/styles/dark/Style";
-import {commonLightStyles} from "../../../branding/boozemart/styles/light/Style";
+import {commonDarkStyles} from "../../../branding/Boozemart2/styles/dark/Style";
+import {commonLightStyles} from "../../../branding/Boozemart2/styles/light/Style";
 import Axios from 'axios';
-import {
-  GoogleSignin,
-  GoogleSigninButton,
-  statusCodes,
-} from '@react-native-google-signin/google-signin';
-import * as Keychain from 'react-native-keychain';
+import { useSelector } from "react-redux";
 
 export const Favourites = (props) => {
 
 const [favLoading, setFavLoading] = useState(true);
 const [favourites, setFavourites] = useState([]);
 const [cart, setCart] = useState([]);
-const [userid, setUserid] = useState(-1);
 const [products, setProducts] = useState([]);
 
-    useEffect(() => {
-        GoogleSignin.isSignedIn().then(isSignedIn => {
-            if(isSignedIn){
-                GoogleSignin.getCurrentUser().then(user => {
-                    Axios.get(ApiUrls.SERVICE_URL+ ApiUrls.GET_USER_SERACH_BY_KEYWORD + user.user.email).then((succResp) => {
-                         setUserid(succResp.data[0].id)
-                    })
-                });
-            } else {
-                Keychain.getGenericPassword().then(credentials => {
-                    if (credentials) {
-                        setUserid(credentials.username)
-                    }
-                })
-            }
-        });
-    },[])
+const userid = useSelector(state => {
+    return state.commonStore.userInfo.userId
+})
 
     useEffect(() => {
         if(userid != -1){
@@ -126,6 +100,7 @@ const [products, setProducts] = useState([]);
                                  numColumns={2}
                                  renderItem={({item, index}) => {
                                          return <FoodItem
+                                         item={item}
                                              title={item.product.product_name}
                                              image={item.product.product_image}
                                              bigImage={item.product.product_image}
@@ -152,7 +127,7 @@ const [products, setProducts] = useState([]);
                             </View>
 
                             <TouchableOpacity onPress={() => {
-                                props.navigation.navigate(Routes.POPULAR_DEALS, {userid:userid}, {title: "You Might also like"});
+                                props.navigation.navigate(Routes.POPULAR_DEALS, {userId:userid}, {title: "You Might also like"});
                             }}>
                                 <View style={screenStyles.sectionHeading}>
                                     <Text style={screenStyles.sectionHeadingText}>You Might Also Like</Text>
@@ -194,7 +169,7 @@ const [products, setProducts] = useState([]);
                             </View>
 
                             <TouchableOpacity onPress={() => {
-                                props.navigation.navigate(Routes.POPULAR_DEALS, {userid:userid}, {title: "Popular Deals"});
+                                props.navigation.navigate(Routes.POPULAR_DEALS, {userId:userid}, {title: "Popular Deals"});
                             }}>
                                 <View style={screenStyles.sectionHeading}>
                                     <Text style={screenStyles.sectionHeadingText}>Popular Orders</Text>

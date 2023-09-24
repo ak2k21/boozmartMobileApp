@@ -3,9 +3,9 @@ import {Keyboard, useColorScheme, View} from "react-native";
 import {Text} from "react-native-elements";
 import {Styles} from "./Style";
 import AppHeader from "../../components/Application/AppHeader/View";
-import {StackActions, useTheme} from "@react-navigation/native";
-import {commonDarkStyles} from "../../../branding/boozemart/styles/dark/Style";
-import {commonLightStyles} from "../../../branding/boozemart/styles/light/Style";
+import {CommonActions, StackActions, useTheme} from "@react-navigation/native";
+import {commonDarkStyles} from "../../../branding/Boozemart2/styles/dark/Style";
+import {commonLightStyles} from "../../../branding/Boozemart2/styles/light/Style";
 import OtpInputs from "react-native-otp-inputs";
 import {FocusAwareStatusBar} from "../../components/Application/FocusAwareStatusBar/FocusAwareStatusBar";
 import Routes from '../../navigation/Routes';
@@ -63,7 +63,7 @@ const [val, setVal] = useState("");
             <View style={screenStyles.mainContainer}>
                 <Text style={screenStyles.titleText}>{"Verify your Number"}</Text>
 
-                <Text style={screenStyles.subtitleText}>{"Enter your OTP code below."}</Text>
+                <Text style={screenStyles.subtitleText}>{"Enter the verification code below"}</Text>
 
                 <View style={screenStyles.otpInputMainContainer}>
                     <OtpInputs
@@ -84,7 +84,21 @@ const [val, setVal] = useState("");
                                 }).then((resp) => {
                                     if(resp.data.status == 200){
                                         Keychain.setGenericPassword(resp.data.userId+"", resp.data.token).then((resp) => {
-                                            props.navigation.navigate(Routes.HOME_VARIANT3)
+                                            if(props.route?.params?.action == 'goToCartList'){
+                                                props.navigation.dispatch(
+                                                    CommonActions.reset({
+                                                    index: 0,
+                                                    routes: [{ name: Routes.CART }]
+                                                    })
+                                                );
+                                            } else {
+                                                props.navigation.dispatch(
+                                                    CommonActions.reset({
+                                                    index: 0,
+                                                    routes: [{ name: Routes.HOME_VARIANT3 }]
+                                                    })
+                                                );
+                                            }
                                         });
                                     } else if(resp.data.status == 500){
                                         //failure message

@@ -42,7 +42,7 @@ export const Styles = function (scheme, colors) {
 
         headerTitleText: {
             fontSize: Typography.P2,
-            fontFamily: fonts.RUBIK_MEDIUM,
+            
             color: colors.headingColor
         },
 
@@ -55,7 +55,7 @@ export const Styles = function (scheme, colors) {
 
         subtitleValueText: {
             fontSize: Typography.P4,
-            fontFamily: fonts.RUBIK_MEDIUM,
+            
             color: colors.headingColor,
             marginRight: wp(2)
         },
@@ -110,7 +110,7 @@ export const Styles = function (scheme, colors) {
         },
 
         orderStatusTitle: {
-            fontFamily: fonts.RUBIK_MEDIUM,
+            
             fontSize: Typography.P3,
             color: colors.headingColor
         },

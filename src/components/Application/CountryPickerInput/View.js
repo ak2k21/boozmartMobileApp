@@ -1,14 +1,14 @@
 import React, {useState} from "react";
 import {TouchableOpacity, useColorScheme, View} from "react-native";
 import {useTheme} from "@react-navigation/native";
-import {commonDarkStyles} from "../../../../branding/boozemart/styles/dark/Style";
-import {commonLightStyles} from "../../../../branding/boozemart/styles/light/Style";
+import {commonDarkStyles} from "../../../../branding/Boozemart2/styles/dark/Style";
+import {commonLightStyles} from "../../../../branding/Boozemart2/styles/light/Style";
 import AppInput from "../AppInput/View";
 import CountryPicker from "react-native-country-picker-modal";
 import {Text} from "react-native-elements";
 import {Styles} from "./Styles";
 import {SvgIcon} from "../SvgIcon/View";
-import IconNames from "../../../../branding/boozemart/assets/IconNames";
+import IconNames from "../../../../branding/Boozemart2/assets/IconNames";
 
 const PropTypes = require("prop-types");
 
@@ -82,12 +82,12 @@ export const CountryPickerInput = (props) => {
     );
 };
 
-CountryPickerInput.propTypes = {
+// CountryPickerInput.propTypes = {
 
-    title: PropTypes.string,
+//     title: PropTypes.string,
 
-    buttonStyle: PropTypes.any,
+//     buttonStyle: PropTypes.any,
 
-    titleStyle: PropTypes.any,
+//     titleStyle: PropTypes.any,
 
-};
+// };

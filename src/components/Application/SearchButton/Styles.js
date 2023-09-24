@@ -9,7 +9,7 @@ export const Styles = function (styles, scheme, colors) {
     return {
         buttonContainer: {
             width: styles.gridWidth,
-            height: hp(5.9),
+            height: hp(4.7),
             backgroundColor: scheme === "dark" ? colors.secondaryBackground : colors.primaryBackground,
             flexDirection: "row",
             alignItems: "center",
@@ -24,7 +24,7 @@ export const Styles = function (styles, scheme, colors) {
         Text: {
             marginLeft: hp("2"),
             fontFamily: Fonts.RUBIK_REGULAR,
-            fontSize: Typography.P4,
+            fontSize: Typography.P5,
             color: colors.subHeadingColor
         },
         rightIcon: {

@@ -32,7 +32,7 @@ export const Styles = function (styles, darkColors, lightColors) {
         },
 
         titleText: {
-            fontFamily: fonts.RUBIK_MEDIUM,
+            
             fontSize: Typography.H8,
             marginBottom: hp("1.5"),
             color: lightColors.headingColor,

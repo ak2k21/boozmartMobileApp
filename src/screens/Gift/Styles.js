@@ -41,8 +41,7 @@ export const Styles = function (styles, colors) {
             width: wp("60%")
         },
         giftDescHead: {
-            width: hp("100%"),
-            fontWeight: "bold"
+            width: hp("100%")
         },
         giftDescIcon: {
             marginTop: hp("1"),
@@ -60,7 +59,6 @@ export const Styles = function (styles, colors) {
         giftInstructionHead: {
             marginLeft: wp("10"),
             marginTop: hp("3"),
-            fontWeight: "bold",
             fontSize: Typography.P1
         },
         giftInspirationContent: {
@@ -74,7 +72,6 @@ export const Styles = function (styles, colors) {
         },
         giftInspirationText: {
             fontSize: 20,
-            fontWeight: "bold",
             color: "#000000",
             textAlign: "center"
         },
@@ -102,7 +99,7 @@ export const Styles = function (styles, colors) {
         },
 
         sectionHeadingText: {
-            fontFamily: Fonts.RUBIK_MEDIUM,
+            
             fontSize: Typography.P2,
             color: colors.headingColor
         },

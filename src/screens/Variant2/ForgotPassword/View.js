@@ -8,11 +8,11 @@ import AppHeader from "../../../components/Application/AppHeader/View"
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scrollview";
 import AppButton from "../../../components/Application/AppButton/View";
 import {useTheme} from "@react-navigation/native";
-import {commonDarkStyles} from "../../../../branding/boozemart/styles/dark/Style";
-import {commonLightStyles} from "../../../../branding/boozemart/styles/light/Style";
+import {commonDarkStyles} from "../../../../branding/Boozemart2/styles/dark/Style";
+import {commonLightStyles} from "../../../../branding/Boozemart2/styles/light/Style";
 import Routes from "../../../navigation/Routes";
 import {CircularBanner} from "../../../components/Application/CicularBanner/View";
-import IconNames from "../../../../branding/boozemart/assets/IconNames";
+import IconNames from "../../../../branding/Boozemart2/assets/IconNames";
 import {FocusAwareStatusBar} from "../../../components/Application/FocusAwareStatusBar/FocusAwareStatusBar";
 
 

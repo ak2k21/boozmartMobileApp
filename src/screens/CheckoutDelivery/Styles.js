@@ -36,7 +36,7 @@ export const Styles = function (scheme, styles, colors) {
 
         deliveryHeader: {
 
-            fontFamily: Fonts.RUBIK_MEDIUM,
+            
             fontSize: Typography.P3,
             marginTop: hp("1"),
             marginBottom: hp("1.5"),
@@ -52,7 +52,7 @@ export const Styles = function (scheme, styles, colors) {
         },
 
         deliveryPrice: {
-            fontFamily: Fonts.RUBIK_MEDIUM,
+            
             fontSize: Typography.P3,
             flex: 1,
             textAlign: "right",
@@ -84,12 +84,12 @@ export const Styles = function (scheme, styles, colors) {
             textAlign: "right"
         },
         totalLabelText: {
-            fontFamily: Fonts.RUBIK_MEDIUM,
+            
             fontSize: Typography.P1,
             flex: 0.5
         },
         totalValueText: {
-            fontFamily: Fonts.RUBIK_MEDIUM,
+            
             fontSize: Typography.P1,
             flex: 0.5,
             textAlign: "right"

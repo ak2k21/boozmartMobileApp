@@ -30,7 +30,7 @@ let Styles = {
     },
     primaryTitle: {
         textTransform: "uppercase",
-        fontFamily: Fonts.RUBIK_MEDIUM,
+        
         fontSize: Typography.P4,
         height: hp("2"),
         overflow: "hidden",

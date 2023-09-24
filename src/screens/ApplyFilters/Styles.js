@@ -56,7 +56,7 @@ export const Styles = function (scheme, colors) {
         },
 
         categoriesCardContainerStyle: {
-            flexDirection: "column",
+            height: hp("80%")
         },
 
         categoryParent: {
@@ -81,13 +81,13 @@ export const Styles = function (scheme, colors) {
 
 
         priceContainer: {
-            flexDirection: "row",
-            justifyContent: "space-between",
+            flexDirection: "column",
+            gap: hp("1%"),
         },
 
         titleStyle: {
             fontSize: Typography.P3,
-            fontFamily: Fonts.RUBIK_MEDIUM,
+            
             marginBottom: hp(1),
             color: colors.headingColor
         },
@@ -169,7 +169,6 @@ export const Styles = function (scheme, colors) {
              paddingLeft: wp("3%"),
            },
            itemName: {
-             fontWeight: 'bold',
              fontSize: 20,
              marginBottom: 5
            },

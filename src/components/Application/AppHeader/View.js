@@ -4,10 +4,10 @@ import {Header} from 'react-native-elements';
 import {heightPercentageToDP as hp} from 'react-native-responsive-screen'
 import AppConfig from "../../../../branding/App_config";
 import {useTheme} from "@react-navigation/native";
-import {commonDarkStyles} from "../../../../branding/boozemart/styles/dark/Style";
-import {commonLightStyles} from "../../../../branding/boozemart/styles/light/Style";
+import {commonDarkStyles} from "../../../../branding/Boozemart2/styles/dark/Style";
+import {commonLightStyles} from "../../../../branding/Boozemart2/styles/light/Style";
 import {SvgIcon} from "../SvgIcon/View";
-import IconNames from "../../../../branding/boozemart/assets/IconNames";
+import IconNames from "../../../../branding/Boozemart2/assets/IconNames";
 
 const PropTypes = require('prop-types');
 
@@ -79,8 +79,9 @@ const AppHeader = (props) => {
                     color: overrideTheme ?
                         (overrideTheme === "dark" ? colors.headerPrimaryColor : lightColors.headerPrimaryColor)
                         : ((darkIcons || headerWithBackground) ? colors.headerPrimaryColor : colors.white),
-                    fontFamily: fonts.RUBIK_MEDIUM,
-                    fontSize: Typography.P1
+                    
+                    fontSize: Typography.P1,
+                    ...props.titleStyle
                 }
             }}
             centerContainerStyle={centerContainerStyle}
@@ -110,7 +111,7 @@ const AppHeader = (props) => {
                 Platform.select({
                     android: Platform.Version <= 20 ? {paddingTop: 0, height: 56} : {},
                 }),
-                {height: hp("10%")}
+                {height: hp("12%")}
             ]}
 
         />
@@ -119,23 +120,23 @@ const AppHeader = (props) => {
 
 }
 
-AppHeader.propTypes = {
+// AppHeader.propTypes = {
 
-    navigation: PropTypes.any,
-    containerStyle: ViewPropTypes.style,
+//     navigation: PropTypes.any,
+//     containerStyle: ViewPropTypes.style,
 
-    title: PropTypes.string,
-    headerWithBack: PropTypes.bool,
-    transparentHeader: PropTypes.bool,
-    darkIcons: PropTypes.bool,
-    headerWithBackground: PropTypes.bool,
-    isTranslucent: PropTypes.bool,
+//     title: PropTypes.string,
+//     headerWithBack: PropTypes.bool,
+//     transparentHeader: PropTypes.bool,
+//     darkIcons: PropTypes.bool,
+//     headerWithBackground: PropTypes.bool,
+//     isTranslucent: PropTypes.bool,
 
-    rightIcon: PropTypes.string,
-    onRightIconPress: PropTypes.func,
-    topInset: PropTypes.number
+//     rightIcon: PropTypes.string,
+//     onRightIconPress: PropTypes.func,
+//     topInset: PropTypes.number
 
-};
+// };
 
 
 export default AppHeader;

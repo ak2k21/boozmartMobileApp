@@ -5,7 +5,7 @@ import {heightPercentageToDP as hp} from "react-native-responsive-screen";
 import BaseView from "../BaseView"
 import Routes from "../../navigation/Routes";
 import Globals from "../../utils/Globals";
-import IconNames from "../../../branding/boozemart/assets/IconNames";
+import IconNames from "../../../branding/Boozemart2/assets/IconNames";
 import ApiUrls from '../../utils/ApiUrls';
 import Axios from 'axios';
 

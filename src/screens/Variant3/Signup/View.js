@@ -9,10 +9,10 @@ import Routes from "../../../navigation/Routes";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scrollview";
 import AppButton from "../../../components/Application/AppButton/View";
 import {useTheme} from "@react-navigation/native";
-import {commonLightStyles} from "../../../../branding/boozemart/styles/light/Style";
+import {commonLightStyles} from "../../../../branding/Boozemart2/styles/light/Style";
 import Utilities from "../../../utils/UtilityMethods";
 import {SvgIcon} from "../../../components/Application/SvgIcon/View";
-import IconNames from "../../../../branding/boozemart/assets/IconNames";
+import IconNames from "../../../../branding/Boozemart2/assets/IconNames";
 import {FocusAwareStatusBar} from "../../../components/Application/FocusAwareStatusBar/FocusAwareStatusBar";
 import {heightPercentageToDP as hp, widthPercentageToDP as wp} from 'react-native-responsive-screen';
 

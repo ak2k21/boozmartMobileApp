@@ -37,11 +37,13 @@ export const Styles = function (colors) {
         bottomButton: {
             flex: 0.1,
             justifyContent: "center",
+            position: "absolute",
+            bottom: hp("1%")
         },
 
 
         primaryText: {
-            fontFamily: Fonts.RUBIK_MEDIUM,
+            
             fontSize: Typography.H8,
             paddingVertical: hp("3"),
         },

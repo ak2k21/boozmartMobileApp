@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import {Text, ActivityIndicator, Animated, FlatList, View} from "react-native";
 
 import BaseView from "../BaseView";
-import IconNames from "../../../branding/boozemart/assets/IconNames";
+import IconNames from "../../../branding/Boozemart2/assets/IconNames";
 import Routes from "../../navigation/Routes";
 import Globals from "../../utils/Globals";
 import {heightPercentageToDP as hp, widthPercentageToDP as wp} from "react-native-responsive-screen";

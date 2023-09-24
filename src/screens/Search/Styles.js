@@ -70,21 +70,21 @@ export const Styles = function (scheme, styles, colors) {
         },
 
         categoryTitleText: {
-            fontFamily: fonts.RUBIK_MEDIUM,
+            
             fontSize: Typography.P3,
             color: colors.headingColor
         },
 
         categoryBtnText: {
-            fontFamily: fonts.RUBIK_MEDIUM,
+            
             fontSize: Typography.P5,
             color: colors.subHeadingQuaternaryColor
         },
 
         historyItemContainer: {
-            flexDirection: 'row',
-            flexShrink: 1,
-            flexWrap: 'wrap',
+            // flexDirection: 'row',
+            // flexShrink: 1,
+            height: hp("6%")
         },
 
         historyItemTextContainer: {

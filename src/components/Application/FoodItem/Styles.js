@@ -40,7 +40,7 @@ export const Styles = function (scheme, colors) {
 
         discountText: {
             color: colors.headingSecondaryColor,
-            fontFamily: Fonts.RUBIK_MEDIUM,
+            
             fontSize: Typography.P7
         },
 
@@ -73,14 +73,13 @@ export const Styles = function (scheme, colors) {
         },
 
         priceText: {
-            fontFamily: Fonts.RUBIK_MEDIUM,
+            
             color: colors.subHeadingSecondaryColor,
             fontSize: Typography.P6
         },
 
         titleText: {
             fontSize: Typography.P2,
-            fontFamily: Fonts.RUBIK_MEDIUM,
             color: colors.headingColor,
             marginTop: hp("0.5"),
             marginBottom: hp("3"),
@@ -140,7 +139,7 @@ export const Styles = function (scheme, colors) {
         },
 
         cartNumberText: {
-            fontFamily: Fonts.RUBIK_MEDIUM,
+            
             color: colors.headingColor
         }
 

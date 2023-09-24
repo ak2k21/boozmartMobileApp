@@ -1,4 +1,4 @@
-const APP_PATH = 'boozemart';
+const APP_PATH = 'Boozemart2';
 
 const AppConfig = {
     config: require(`./${APP_PATH}/configuration/Config.js`),

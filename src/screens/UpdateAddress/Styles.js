@@ -20,7 +20,8 @@ export const Styles = function (colors) {
         bottomButton: {
             flex: 0.1,
             justifyContent: "center",
-            marginTop: hp(23)
+            position: "absolute",
+            bottom: hp("1%")
         },
 
         defaultText: {
@@ -34,7 +35,21 @@ export const Styles = function (colors) {
         switchContainer: {
             flexDirection: "row",
             marginTop: hp(1)
-        }
+        },
+
+        dropdown1BtnStyle: {
+            width: '100%',
+            height: 60,
+            backgroundColor: '#FFF',
+            borderRadius: 8,
+            marginTop: 2
+            // borderWidth: 1,
+            // borderColor: '#444',
+          },
+          dropdown1BtnTxtStyle: {color: '#444', textAlign: 'left'},
+          dropdown1DropdownStyle: {backgroundColor: '#EFEFEF'},
+          dropdown1RowStyle: {backgroundColor: '#EFEFEF', borderBottomColor: '#C5C5C5'},
+          dropdown1RowTxtStyle: {color: '#444', textAlign: 'left'},
 
     }
 

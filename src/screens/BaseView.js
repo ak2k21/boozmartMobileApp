@@ -3,8 +3,8 @@ import {useColorScheme, View} from "react-native";
 import AppHeader from "../components/Application/AppHeader/View";
 import Globals from "../utils/Globals";
 import {heightPercentageToDP as hp} from "react-native-responsive-screen";
-import {commonDarkStyles} from "../../branding/boozemart/styles/dark/Style";
-import {commonLightStyles} from "../../branding/boozemart/styles/light/Style";
+import {commonDarkStyles} from "../../branding/Boozemart2/styles/dark/Style";
+import {commonLightStyles} from "../../branding/Boozemart2/styles/light/Style";
 import {useTheme} from "@react-navigation/native";
 import {FocusAwareStatusBar} from "../components/Application/FocusAwareStatusBar/FocusAwareStatusBar";
 
@@ -55,6 +55,7 @@ const BaseView = (props) => {
                     rightIcon={rightIcon}
                     onRightIconPress={() => rightIcon !== "" && onRightIconPress()}
                     title={title}
+                    titleStyle={props.titleStyle}
                     bottomMargin={{}}
                 />
 

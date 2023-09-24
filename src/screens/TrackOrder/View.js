@@ -1,15 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import {useColorScheme, View} from "react-native";
 import {Divider, Text} from 'react-native-elements';
-
 import BaseView from "../BaseView";
 import {Styles} from "./Styles";
 import AppButton from "../../components/Application/AppButton/View";
 import Routes from "../../navigation/Routes";
-import {StackActions, useTheme} from "@react-navigation/native";
-import Config from "../../../branding/boozemart/configuration/Config";
+import {CommonActions, StackActions, useTheme} from "@react-navigation/native";
+import Config from "../../../branding/Boozemart2/configuration/Config";
 import {SvgIcon} from "../../components/Application/SvgIcon/View";
-import IconNames from "../../../branding/boozemart/assets/IconNames";
+import IconNames from "../../../branding/Boozemart2/assets/IconNames";
 import Axios from 'axios';
 import ApiUrls from '../../utils/ApiUrls';
 
@@ -190,14 +189,14 @@ export const TrackOrder = (props) => {
                         <View style={screenStyles.bottomContainer}>
 
                             <AppButton
-                                title={'Go Back'}
+                                title={'Back To Home'}
                                 onPress={() => {
                                     props.navigation.dispatch(
-                                        StackActions.replace(Config.SELECTED_VARIANT === Routes.INTRO_SCREEN1 ?
-                                            Routes.HOME_VARIANT1 : Config.SELECTED_VARIANT === Routes.INTRO_SCREEN2 ?
-                                                Routes.HOME_VARIANT2 :
-                                                Routes.HOME_VARIANT3)
-                                    );
+                                        CommonActions.reset({
+                                          index: 0,
+                                          routes: [{ name: Routes.HOME_VARIANT3 }]
+                                        })
+                                      );
                                 }}
                             />
 

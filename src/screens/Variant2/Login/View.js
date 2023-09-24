@@ -6,11 +6,11 @@ import {Styles} from "./Style"
 import AppHeader from "../../../components/Application/AppHeader/View"
 import {AppSocialButton} from "../../../components/Application/AppSocialButton/View";
 import {useTheme} from "@react-navigation/native";
-import {commonDarkStyles} from "../../../../branding/boozemart/styles/dark/Style";
-import {commonLightStyles} from "../../../../branding/boozemart/styles/light/Style";
+import {commonDarkStyles} from "../../../../branding/Boozemart2/styles/dark/Style";
+import {commonLightStyles} from "../../../../branding/Boozemart2/styles/light/Style";
 import {CircularBanner} from "../../../components/Application/CicularBanner/View";
 import {widthPercentageToDP as wp} from "react-native-responsive-screen";
-import IconNames from "../../../../branding/boozemart/assets/IconNames";
+import IconNames from "../../../../branding/Boozemart2/assets/IconNames";
 import {FocusAwareStatusBar} from "../../../components/Application/FocusAwareStatusBar/FocusAwareStatusBar";
 
 export const Variant2LoginScreen = (props) => {

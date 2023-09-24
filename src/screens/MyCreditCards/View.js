@@ -8,7 +8,7 @@ import AppButton from "../../components/Application/AppButton/View";
 import Globals from "../../utils/Globals";
 import {CardItem} from "../../components/Application/CardItem/View";
 import {useTheme} from "@react-navigation/native";
-import IconNames from "../../../branding/boozemart/assets/IconNames";
+import IconNames from "../../../branding/Boozemart2/assets/IconNames";
 import {CardContentItem} from "../../components/Application/CardContentItem/View";
 import ApiUrls from '../../utils/ApiUrls';
 import Axios from 'axios';
@@ -24,9 +24,7 @@ const [mycreditcards, setMycreditcards] = useState([]);
         Axios.get(ApiUrls.SERVICE_URL+ApiUrls.GET_CREDIT_CARD_BY_USER_ID_API + props.route.params.userid).then((succResp) =>{
         console.log("orderlist: ",succResp.data);
         setCreditcardsLoading(false);
-            setMycreditcards(succResp.data.map((item) => {
-             return {...item, spinValue : new Animated.Value(0)};
-           }));
+            setMycreditcards(succResp.data);
         },(errorresp) =>{
             console.log("From error")
             console.log((errorresp));

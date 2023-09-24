@@ -18,6 +18,13 @@ export const Styles = function (scheme, colors) {
             borderRadius: hp(0.75)
         },
 
+        cartItemLeftImage: {
+            width: hp("6"),
+            height: hp("6"),
+            marginRight: wp("2"),
+            resizeMode: "contain"
+        },
+
         ordersListFirstItem: {
             marginTop: hp(3),
         },
@@ -44,7 +51,7 @@ export const Styles = function (scheme, colors) {
 
         headerTitleText: {
             fontSize: Typography.P3,
-            fontFamily: Fonts.RUBIK_MEDIUM,
+            
             color: colors.headingColor
         },
 
@@ -57,7 +64,7 @@ export const Styles = function (scheme, colors) {
 
         headerSubtitleValueText: {
             fontSize: Typography.P4,
-            fontFamily: Fonts.RUBIK_MEDIUM,
+            
         },
 
         headerRightIconContainer: {
@@ -129,7 +136,7 @@ export const Styles = function (scheme, colors) {
 
         contentItemLeftText: {
             flex: 0.5,
-            fontFamily: Fonts.RUBIK_MEDIUM,
+            
             fontSize: Typography.P5,
             marginTop: -hp(0.3),
             color: colors.headingColor

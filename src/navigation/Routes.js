@@ -22,17 +22,20 @@ const Routes = {
     LOGIN_FORM_SCREEN3: "login_form3",
     SIGNUP_FORM_SCREEN3: "signup_form3",
     FORGOT_PASSWORD_FORM_SCREEN3: "forgot_password_form3",
+    ADDRESS_CHECK: "address_check",
 
     HOME_STACK: "home_stack",
     FAVOURITES_STACK: "favourites_stack",
     GIFT_STACK: "gift_stack",
     PROFILE_STACK: "profile_stack",
+    CART_STACK: "cart_stack",
 
     HOME_VARIANT1: "home1",
     HOME_VARIANT2: "home2",
     HOME_VARIANT3: "home3",
     FAVOURITE: "favourite",
     GIFT: "gift",
+    GIFT_DETAILS: "gift_details",
     PROFILE1: "profile1",
     PROFILE2: "profile2",
     PROFILE3: "profile3",
@@ -58,6 +61,8 @@ const Routes = {
     CART_SUMMARY: "cart_summary",
 
     ORDER_SUCCESS: "order_success",
+    ORDER_CANCELLED: "order_cancelled",
+    ORDER_TRACK: "order_track",
 
     MY_ORDERS: "my_order",
     TRACK_ORDERS: "track_order",

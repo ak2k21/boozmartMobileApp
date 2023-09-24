@@ -6,18 +6,18 @@ import Globals from "../../utils/Globals";
 const Fonts = AppConfig.fonts.default;
 const Typography = AppConfig.typography.default;
 
-export const Styles = function (scheme, colors) {
+export const Styles = function (styles, scheme, colors) {
 
     return {
         container: {
             flex: 1,
             backgroundColor: colors.secondaryBackground,
-            paddingBottom: Globals.SAFE_AREA_INSET.bottom
+            paddingBottom: hp("2%")
         },
 
         imageContainer: {
             width: wp("100%"),
-            height: hp("55%"),
+            height: hp("47%"),
             backgroundColor: colors.primaryBackground,
             paddingTop: Globals.SAFE_AREA_INSET.top
         },
@@ -33,11 +33,11 @@ export const Styles = function (scheme, colors) {
             flex: 1,
             // alignSelf: "center",
             marginHorizontal: wp(5),
-            paddingTop: hp("2"),
         },
 
         bottomContainerUpper: {
-            flex: 0.65
+            flex: 0.65,
+            position: "relative"
         },
 
         bottomContainerLower: {
@@ -47,10 +47,13 @@ export const Styles = function (scheme, colors) {
         infoContainer: {
             flexDirection: "row",
             alignItems: "center",
+            position: "absolute",
+            right: 0,
+            top: 0
         },
 
         favouriteContainer: {
-            width: "50%",
+            width: "100%",
             height: hp(2),
             justifyContent: "center",
             alignItems: "flex-end"
@@ -58,16 +61,15 @@ export const Styles = function (scheme, colors) {
 
         priceText: {
             color: colors.subHeadingSecondaryColor,
-            fontSize: Typography.H8,
-            fontFamily: Fonts.RUBIK_MEDIUM,
+            fontSize: Typography.H9,
             width: "50%"
         },
 
         nameText: {
-            fontFamily: Fonts.RUBIK_MEDIUM,
-            fontSize: Typography.H8,
+            fontSize: Typography.H9,
             color: colors.headingColor,
-            marginBottom: hp("0.5")
+            marginBottom: hp("0.5"),
+            width: wp("85%")
         },
 
         weightText: {
@@ -97,13 +99,13 @@ export const Styles = function (scheme, colors) {
 
         detailText: {
             fontFamily: Fonts.RUBIK_LIGHT,
-            fontSize: Typography.P2,
+            fontSize: Typography.P4,
             lineHeight: hp("3%"),
             color: colors.subHeadingColor,
         },
 
         seeMoreStyle: {
-            fontFamily: Fonts.RUBIK_MEDIUM,
+            
             fontSize: Typography.P2,
             color: colors.headingColor,
         },
@@ -114,14 +116,60 @@ export const Styles = function (scheme, colors) {
             justifyContent: "space-between",
             alignItems: "center",
             backgroundColor: colors.primaryBackground,
-            marginVertical: hp("1")
+            marginVertical: hp("1"),
+            height: hp("4%")
         },
 
         cartCounterText: {
-            fontFamily: Fonts.RUBIK_MEDIUM,
+            fontSize: Typography.P3,
             color: colors.subHeadingColor,
-            marginLeft: "5%"
-        }
+        },
+
+        categoryItem: {
+            borderRadius: 5,
+            margin: hp("1"),
+            backgroundColor: colors.primaryBackground
+        },
+
+        sectionHeading: {
+            width: styles.gridWidth,
+            flexDirection: "row",
+            alignItem: "center",
+            justifyContent: "space-between",
+            paddingVertical: hp("1"),
+            marginVertical: hp("1"),
+        },
+
+        sectionHeadingText: {
+            
+            fontSize: Typography.P2,
+            color: colors.headingColor
+        },
+        centeredView: {
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginTop: 22,
+          },
+          modalView: {
+            margin: 20,
+            backgroundColor: 'white',
+            borderRadius: 20,
+            padding: 35,
+            alignItems: 'center',
+            shadowColor: '#000',
+            shadowOffset: {
+              width: 0,
+              height: 2,
+            },
+            shadowOpacity: 0.25,
+            shadowRadius: 4,
+            elevation: 5,
+          },
+          modalText: {
+            marginBottom: 15,
+            textAlign: 'center',
+          },
     }
 
 }

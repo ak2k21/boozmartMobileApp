@@ -1,4 +1,4 @@
-import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import {heightPercentageToDP as hp, widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
 import AppConfig from "../../../branding/App_config";
 
@@ -16,7 +16,7 @@ export const Styles = function (styles, colors) {
         },
 
         flatListContainer: {
-            flex: 0.78,
+            flex: 1,
         },
 
         flatListFirstItemContainer: {
@@ -56,10 +56,13 @@ export const Styles = function (styles, colors) {
             backgroundColor: colors.primaryBackground,
 //             paddingTop: hp("2"),
             width: styles.gridWidth,
+            paddingBottom: hp(4),
+            marginHorizontal: wp("10%")
         },
         totalContainer: {
             flexDirection: "row",
-            marginBottom: hp("1.5"),
+            marginVertical: hp("1.5"),
+            width: wp("80%"),
         },
         subtotalLabelText: {
             fontFamily: Fonts.RUBIK_REGULAR,
@@ -74,13 +77,13 @@ export const Styles = function (styles, colors) {
             color: colors.subHeadingColor
         },
         totalLabelText: {
-            fontFamily: Fonts.RUBIK_MEDIUM,
+            
             fontSize: Typography.P1,
             flex: 0.5,
             color: colors.headingColor
         },
         totalValueText: {
-            fontFamily: Fonts.RUBIK_MEDIUM,
+            
             fontSize: Typography.P1,
             flex: 0.5,
             textAlign: "right",
@@ -93,7 +96,20 @@ export const Styles = function (styles, colors) {
             marginBottom: hp("1"),
             backgroundColor: colors.borderColorLight
         },
-
+         BuyAgainTitle: {
+            fontFamily: Fonts.RUBIK_REGULAR,
+            fontSize: 19,
+            color: colors.headingColor,
+            marginBottom: 5,
+        },
+         sectionHeading: {
+            width: styles.gridWidth,
+            flexDirection: "row",
+            alignItem: "center",
+            justifyContent: "space-between",
+            paddingVertical: hp("1"),
+            marginVertical: hp("1"),
+        },
     }
 
 }

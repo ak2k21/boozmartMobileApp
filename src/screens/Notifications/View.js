@@ -64,7 +64,7 @@ export const Notifications = (props) => {
                                 true,
                                 false,
                                 "Allow Notifications",
-                                "Get notifications about what is coming up in the future on Boozemart",
+                                "Get notifications about what is coming up in the future on Boozemart2",
                             )}
 
                             {renderNotificationRow(

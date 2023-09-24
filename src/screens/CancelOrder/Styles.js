@@ -16,7 +16,7 @@ export const Styles = function (scheme, colors) {
         },
 
         upperContainer: {
-            flex: 0.9
+            flex: 0.9,
         },
 
         headerContainer: {
@@ -42,7 +42,7 @@ export const Styles = function (scheme, colors) {
 
         headerTitleText: {
             fontSize: Typography.P2,
-            fontFamily: fonts.RUBIK_MEDIUM,
+            
             color: colors.headingColor
         },
 
@@ -55,7 +55,7 @@ export const Styles = function (scheme, colors) {
 
         subtitleValueText: {
             fontSize: Typography.P4,
-            fontFamily: fonts.RUBIK_MEDIUM,
+            
             color: colors.headingColor,
             marginRight: wp(2)
         },
@@ -110,7 +110,7 @@ export const Styles = function (scheme, colors) {
         },
 
         orderStatusTitle: {
-            fontFamily: fonts.RUBIK_MEDIUM,
+            
             fontSize: Typography.P3,
             color: colors.headingColor
         },
@@ -157,7 +157,7 @@ export const Styles = function (scheme, colors) {
 
                 cartItemNameText: {
                     fontSize: Typography.P3,
-                    fontFamily: fonts.RUBIK_MEDIUM,
+                    
                     color: colors.headingColor,
                     marginBottom: hp(0.5),
                     width: wp("50")
@@ -173,11 +173,35 @@ export const Styles = function (scheme, colors) {
                     flex: 1,
                     textAlign: "right",
                     fontSize: Typography.P5,
-                    fontFamily: fonts.RUBIK_MEDIUM,
+                    
                     color: colors.activeColor,
                     marginRight: wp(5)
                 },
-
+                centeredView: {
+                    flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    marginTop: 22,
+                  },
+                  modalView: {
+                    margin: 20,
+                    backgroundColor: 'white',
+                    borderRadius: 20,
+                    padding: 35,
+                    alignItems: 'center',
+                    shadowColor: '#000',
+                    shadowOffset: {
+                      width: 0,
+                      height: 2,
+                    },
+                    shadowOpacity: 0.25,
+                    shadowRadius: 4,
+                    elevation: 5,
+                  },
+                  modalText: {
+                    marginBottom: 15,
+                    textAlign: 'center',
+                  },
 
     }
 

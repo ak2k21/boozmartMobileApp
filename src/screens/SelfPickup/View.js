@@ -11,7 +11,7 @@ import AppButton from "../../components/Application/AppButton/View";
 import {useTheme} from "@react-navigation/native";
 import {Text} from "react-native-elements";
 import {Styles} from "./Styles";
-import IconNames from "../../../branding/boozemart/assets/IconNames";
+import IconNames from "../../../branding/Boozemart2/assets/IconNames";
 import {AddressItem} from "../../components/Application/AddressItem/View";
 import Globals from "../../utils/Globals";
 

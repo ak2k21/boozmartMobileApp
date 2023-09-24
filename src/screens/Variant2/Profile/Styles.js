@@ -59,7 +59,7 @@ export const Styles = function (styles, scheme, colors) {
         },
 
         nameText: {
-            fontFamily: Fonts.RUBIK_MEDIUM,
+            
             fontSize: Typography.P1,
             color: colors.headingColor
         },

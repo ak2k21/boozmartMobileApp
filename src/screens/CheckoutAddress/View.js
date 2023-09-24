@@ -1,56 +1,50 @@
-import React, {useState, useEffect} from 'react';
-import {Text, ActivityIndicator, Animated,FlatList, View} from 'react-native';
-
+import React, { useState, useEffect } from 'react';
+import { Text, ActivityIndicator, Animated, FlatList, View } from 'react-native';
 import BaseView from "../BaseView"
 import Routes from "../../navigation/Routes";
-import Globals from "../../utils/Globals";
-import {AddressItem} from "../../components/Application/AddressItem/View";
+import { AddressItem } from "../../components/Application/AddressItem/View";
 import AppButton from "../../components/Application/AppButton/View";
-import {useTheme} from "@react-navigation/native";
-import {Styles} from "./Styles";
-import IconNames from "../../../branding/boozemart/assets/IconNames";
+import { useTheme } from "@react-navigation/native";
+import { Styles } from "./Styles";
+import IconNames from "../../../branding/Boozemart2/assets/IconNames";
 import ApiUrls from '../../utils/ApiUrls';
 import Axios from 'axios';
-import {heightPercentageToDP as hp} from "react-native-responsive-screen";
-
+import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 
 export const CheckoutAddress = (props) => {
 
-const [shippinggAddress, setShippinggAddress] = useState(0);
-
-const [addressLoading, setAddressLoading] = useState(true);
-const [userAddressList, setUserAddressList] = useState([]);
+    const [shippinggAddress, setShippinggAddress] = useState(0);
+    const [addressLoading, setAddressLoading] = useState(true);
+    const [userAddressList, setUserAddressList] = useState([]);
 
     useEffect(() => {
-        Axios.get(ApiUrls.SERVICE_URL+ApiUrls.GET_BY_ADDRESS_ALL_API,{
+        Axios.get(ApiUrls.SERVICE_URL + ApiUrls.GET_BY_ADDRESS_ALL_API, {
             headers: {
                 userId: props.route.params.userId
             }
-        }).then((succResp) =>{
-        console.log("addresslist: ",succResp.data);
-        setAddressLoading(false);
-            setUserAddressList(succResp.data.map((item) => {
-                return {...item, spinValue : new Animated.Value(0)};
-            }));
-            if(succResp.data.length) onAddressItemPress(0)
-        },(errorresp) =>{
+        }).then((succResp) => {
+            setAddressLoading(false);
+            setUserAddressList(succResp.data);
+            if (succResp.data.length) 
+                succResp.data.forEach((item,index) => {
+                    if(item.is_default)
+                        onAddressItemPress(index)
+                })
+        }, (errorresp) => {
             console.log("From error")
             console.log((errorresp));
         })
     }, [])
 
     //Theme based styling and colors
-    const {colors} = useTheme();
+    const { colors } = useTheme();
     const screenStyles = Styles(colors);
-
     const [addresses, setAddresses] = useState(userAddressList);
 
     const onAddressItemPress = (index) => {
 
         setUserAddressList((userAddressList) => {
-
             userAddressList.map(address => address.isActive = false);
-
             userAddressList[index].isActive = !userAddressList[index].isActive
             setShippinggAddress(userAddressList[index].address_id)
             return [...userAddressList];
@@ -66,7 +60,8 @@ const [userAddressList, setUserAddressList] = useState([]);
             rightIcon={IconNames.PlusCircle}
             onRightIconPress={() => {
                 props.navigation.push(Routes.Add_Address, {
-                    userId: props.route.params.userId
+                    userId: props.route.params.userId,
+                    orderId: props.route.params.orderid
                 });
             }}
             headerWithBack
@@ -76,21 +71,22 @@ const [userAddressList, setUserAddressList] = useState([]);
 
                     <View style={screenStyles.container}>
                         {addressLoading &&
-                              <View style={{marginTop: hp("5")}}><ActivityIndicator/></View>}
-                         {!addressLoading && !userAddressList.length && (
-                                <View>
-                                <Text style = {{
-                                     marginTop: hp(30),
-                                     textAlign:"center",
-                                     fontSize:20,
-                                     }}>Add your address to display here</Text>
-                                </View>
-                                )}
+                            <View style={{ marginTop: hp("5") }}><ActivityIndicator /></View>}
+                        {!addressLoading && !userAddressList.length && (
+
+                            <View>
+                                <Text style={{
+                                    marginTop: hp(30),
+                                    textAlign: "center",
+                                    fontSize: 20,
+                                }}>Add your address to display here</Text>
+                            </View>
+                        )}
                         <FlatList
                             showsVerticalScrollIndicator={false}
                             style={screenStyles.listContainer}
                             data={userAddressList}
-                            renderItem={({item, index}) => {
+                            renderItem={({ item, index }) => {
                                 if (index === 0) {
                                     return <View style={screenStyles.addressFirstItem}>
                                         <AddressItem
@@ -98,8 +94,8 @@ const [userAddressList, setUserAddressList] = useState([]);
                                             isActive={item.isActive}
                                             //showAnimatedIcon
                                             item={item}
-                                            setUserAddressList = {setUserAddressList}
-                                            userId= {props.route.params.userId}
+                                            setUserAddressList={setUserAddressList}
+                                            userId={props.route.params.userId}
                                             onPress={() => {
                                                 onAddressItemPress(index)
                                             }}
@@ -111,8 +107,8 @@ const [userAddressList, setUserAddressList] = useState([]);
                                             showActiveIcon
                                             isActive={item.isActive}
                                             item={item}
-                                            setUserAddressList = {setUserAddressList}
-                                            userId= {props.route.params.userId}
+                                            setUserAddressList={setUserAddressList}
+                                            userId={props.route.params.userId}
                                             onPress={() => {
                                                 onAddressItemPress(index)
                                             }}
@@ -123,32 +119,32 @@ const [userAddressList, setUserAddressList] = useState([]);
                                         showActiveIcon
                                         isActive={item.isActive}
                                         item={item}
-                                        setUserAddressList = {setUserAddressList}
-                                        userId= {props.route.params.userId}
+                                        setUserAddressList={setUserAddressList}
+                                        userId={props.route.params.userId}
                                         onPress={() => {
                                             onAddressItemPress(index)
                                         }}
                                     />
                                 }
 
-                            }}/>
+                            }} />
 
-                        {userAddressList.length !==0 &&
-                        <View style={screenStyles.bottomContainer}>
-                            <AppButton
-                                title={'Next'}
-                                onPress={() => {
-                                    Axios.put(ApiUrls.SERVICE_URL + ApiUrls.PUT_ORDER_BY_ID_API+props.route.params.orderid, {
-                                                  "address_id": shippinggAddress
-                                    }).then((succResp) => {
-                                        props.navigation.navigate(Routes.CHECKOUT_PAYMENT, {
-                                            orderid: succResp.data.order_id,
-                                            userId: props.route.params.userId
+                        {userAddressList.length !== 0 &&
+                            <View style={screenStyles.bottomContainer}>
+                                <AppButton
+                                    title={'Next'}
+                                    onPress={() => {
+                                        Axios.put(ApiUrls.SERVICE_URL + ApiUrls.PUT_ORDER_BY_ID_API + props.route.params.orderid, {
+                                            "address_id": shippinggAddress
+                                        }).then((succResp) => {
+                                            props.navigation.navigate(Routes.CHECKOUT_PAYMENT, {
+                                                orderid: props.route.params.orderid,
+                                                userId: props.route.params.userId
+                                            })
                                         })
-                                    })
-                                }}
-                            />
-                        </View>}
+                                    }}
+                                />
+                            </View>}
                     </View>
 
                 );

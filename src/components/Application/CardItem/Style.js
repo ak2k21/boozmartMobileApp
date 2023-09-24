@@ -77,7 +77,7 @@ export const Styles = function (scheme, colors) {
 
         titleText: {
             fontSize: Typography.P3,
-            fontFamily: fonts.RUBIK_MEDIUM,
+            
             color: colors.headingColor
         },
 

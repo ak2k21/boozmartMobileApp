@@ -1,9 +1,11 @@
 require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
-platform :ios, '11.0'
+ platform :ios, '13.0'
+# platform :ios, '16.0'
+use_modular_headers!
 
-target 'Carter' do
+target 'Boozemart2' do
   config = use_native_modules!
 
   use_react_native!(
@@ -12,19 +14,48 @@ target 'Carter' do
     :hermes_enabled => false
   )
 
-  target 'CarterTests' do
+  pod 'FirebaseFirestore', :git => 'https://github.com/invertase/firestore-ios-sdk-frameworks.git', :tag => '10.0.0'
+  pod 'GoogleMaps'
+
+  target 'Boozemart2Tests' do
     inherit! :complete
     # Pods for testing
   end
+
+
+  # pod 'YogaKit', :modular_headers => true
+  #  pod 'GoogleSignIn', :modular_headers => true
+  #  pod 'GoogleMaps', :modular_headers => true
+  #  pod 'gRPC-Core', :modular_headers => true
+  # pod 'Firebase/Core', :modular_headers => true
+  # pod 'Firebase/Firestore', :modular_headers => true
+  # pod 'Firebase/Auth', :modular_headers => true
+  # pod 'GoogleUtilities', :modular_headers => true
+# pod 'Firebase', :modular_headers => true
+#      pod 'FirebaseCore', :modular_headers => true
+#      pod 'FirebaseStore', :modular_headers => true
+#      pod 'GoogleUtilities', :modular_headers => true
+#     $RNFirebaseAsStaticFramework = true
 
   # Enables Flipper.
   #
   # Note that if you have use_frameworks! enabled, Flipper will not work and
   # you should disable the next line.
-  use_flipper!()
+  #  use_flipper!()
 
-  post_install do |installer|
-    react_native_post_install(installer)
-    __apply_Xcode_12_5_M1_post_install_workaround(installer)
-  end
+  # post_install do |installer|
+    # project_path = '/Boozemart2.xcodeproj'
+    # project = Xcodeproj::Project.open(project_path)
+
+    # installer.pods_project.targets.each do |target|
+    #   if target.name == 'Flipper-Glog'
+    #     target.remove_from_project(project)
+    #   end
+    # end
+
+    # project.save
+    # react_native_post_install(installer)
+    # __apply_Xcode_12_5_M1_post_install_workaround(installer)
+  # end
+
 end

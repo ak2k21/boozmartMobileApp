@@ -30,7 +30,7 @@ export const Styles = function (colors) {
         },
 
         counterText: {
-            fontFamily: fonts.RUBIK_MEDIUM,
+            
             fontSize: Typography.P1,
             color: colors.headingColor
         }

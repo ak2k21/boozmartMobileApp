@@ -48,7 +48,7 @@ export const Styles = function (styles, colors) {
         },
 
         introItemTitle: {
-            fontFamily: fonts.RUBIK_MEDIUM,
+            
             fontSize: Typography.H7,
             width: wp("75"),
             textAlign: "center",

@@ -9,7 +9,7 @@ import Easing from "react-native/Libraries/Animated/Easing";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import {useTheme} from "@react-navigation/native";
 import {SvgIcon} from "../SvgIcon/View";
-import IconNames from "../../../../branding/boozemart/assets/IconNames";
+import IconNames from "../../../../branding/Boozemart2/assets/IconNames";
 
 const assets = AppConfig.assets.default;
 
@@ -100,7 +100,7 @@ export const FavouriteItem = (props) => {
                         <Text style={itemStyles.titleText}>{item.name}</Text>
                         <View style={{flexDirection: "row"}}>
                             <Text style={itemStyles.subtitleText}>{"Total Items: "}</Text>
-                            <Text style={[itemStyles.subtitleText, {fontWeight: "bold"}]}>{item.totalItems}</Text>
+                            <Text style={[itemStyles.subtitleText]}>{item.totalItems}</Text>
                         </View>
                     </View>
 
@@ -133,10 +133,10 @@ export const FavouriteItem = (props) => {
 
 };
 
-FavouriteItem.propTypes = {
-    isActive: PropTypes.bool,
-    item: PropTypes.any,
-};
+// FavouriteItem.propTypes = {
+//     isActive: PropTypes.bool,
+//     item: PropTypes.any,
+// };
 
 FavouriteItem.defaultProps = {};
 

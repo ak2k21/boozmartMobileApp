@@ -3,9 +3,9 @@ import {TouchableOpacity, useColorScheme, View} from "react-native";
 import {Styles} from "./Style"
 import Globals from "../../../utils/Globals";
 import {useTheme} from "@react-navigation/native";
-import {commonDarkStyles} from "../../../../branding/boozemart/styles/dark/Style";
-import {commonLightStyles} from "../../../../branding/boozemart/styles/light/Style";
-import IconNames from "../../../../branding/boozemart/assets/IconNames";
+import {commonDarkStyles} from "../../../../branding/Boozemart2/styles/dark/Style";
+import {commonLightStyles} from "../../../../branding/Boozemart2/styles/light/Style";
+import IconNames from "../../../../branding/Boozemart2/assets/IconNames";
 import {SvgIcon} from "../SvgIcon/View";
 
 

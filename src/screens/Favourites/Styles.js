@@ -74,7 +74,7 @@ export const Styles = function (styles, scheme, colors) {
 
         titleText: {
             fontSize: Typography.P3,
-            fontFamily: fonts.RUBIK_MEDIUM,
+            
             color: colors.headingColor
         },
 
@@ -96,7 +96,6 @@ export const Styles = function (styles, scheme, colors) {
             fontFamily: fonts.RUBIK_REGULAR,
             fontSize: 20,
             color: colors.headingColor,
-            fontWeight: "bold",
             marginVertical: 5
         },
 
@@ -122,7 +121,7 @@ export const Styles = function (styles, scheme, colors) {
         },
 
         sectionHeadingText: {
-            fontFamily: fonts.RUBIK_MEDIUM,
+            
             fontSize: Typography.P2,
             color: colors.headingColor
         },

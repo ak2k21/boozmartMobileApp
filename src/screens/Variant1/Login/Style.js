@@ -33,7 +33,7 @@ export const Styles = function (styles, colors) {
         },
 
         titleText: {
-            fontFamily: fonts.RUBIK_MEDIUM,
+            
             fontSize: Typography.H8,
             marginBottom: hp("0.5"),
             color: colors.headingColor
@@ -62,7 +62,7 @@ export const Styles = function (styles, colors) {
 
         loginButton: {
             color: colors.headingColor,
-            fontFamily: fonts.RUBIK_MEDIUM,
+            
             fontSize: Typography.P4,
         },
 

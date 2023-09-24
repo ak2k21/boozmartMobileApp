@@ -1,67 +1,63 @@
 import React, { useRef, useState, useEffect, useContext } from 'react';
 import { FlatList, Image, Text, TouchableOpacity, useColorScheme, View, ScrollView, ActivityIndicator } from "react-native";
-import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { CommonActions } from "@react-navigation/native";
-import Carousel, { Pagination } from 'react-native-snap-carousel';
+import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import Carousel from 'react-native-snap-carousel';
 import { FoodItem } from "../../../components/Application/FoodItem/View";
 import { SearchButton } from "../../../components/Application/SearchButton/View";
 import { Styles } from "./Styles";
 import Routes from "../../../navigation/Routes";
-import Globals from "../../../utils/Globals";
 import ApiUrls from "../../../utils/ApiUrls";
 import RBSheet from "react-native-raw-bottom-sheet";
 //import {FavouritesBottomSheet} from "../../../components/Application/FavouritesBottomSheet/View";
 import { CategoryItem } from "../../../components/Application/CategoryItem/View";
 import { useTheme } from "@react-navigation/native";
-import { commonDarkStyles } from "../../../../branding/boozemart/styles/dark/Style";
-import { commonLightStyles } from "../../../../branding/boozemart/styles/light/Style";
+import { commonDarkStyles } from "../../../../branding/Boozemart2/styles/dark/Style";
+import { commonLightStyles } from "../../../../branding/Boozemart2/styles/light/Style";
 import { SvgIcon } from "../../../components/Application/SvgIcon/View";
-import IconNames from "../../../../branding/boozemart/assets/IconNames";
+import IconNames from "../../../../branding/Boozemart2/assets/IconNames";
 import { FocusAwareStatusBar } from "../../../components/Application/FocusAwareStatusBar/FocusAwareStatusBar";
 import { ReorderItem } from "../../../components/Application/ReorderItem/View";
 import Axios from 'axios';
 import Context from '../../../utils/context'
-import {
-    GoogleSignin,
-    GoogleSigninButton,
-    statusCodes,
-} from '@react-native-google-signin/google-signin';
-import * as Keychain from 'react-native-keychain';
+import store from '../../../store/index';
+import { commonActions } from '../../../store/commonStore'
+import { useSelector } from 'react-redux';
+import AppConfig from "../../../../branding/App_config";
+const Typography = AppConfig.typography.default;
+const dispatch = store.dispatch
+let commonStore = store.getState().commonStore
+store.subscribe(function () {
+    commonStore = store.getState().commonStore
+})
 
 export const Variant3Home = (props) => {
 
     //Theme based styling and colors
     const scheme = useColorScheme();
     const { colors } = useTheme();
+    const fonts = AppConfig.fonts.default;
     const globalStyles = scheme === "dark" ? commonDarkStyles(colors) : commonLightStyles(colors);
     const screenStyles = Styles(globalStyles, scheme, colors);
 
     //Internal States
     const [products, setProducts] = useState([]);
-    const [userId, setUserId] = useState(-1);
     const [scotch, setScotch] = useState([]);
     const [banners, setBanners] = useState([]);
     const [readCategory, setreadCategory] = useState([]);
     const [pageCurrent, setPageCurrent] = useState(1);
-    const [buyAgainOrders, setBuyAgainOrders] = useState([]);
+    const [recentOrderedProducts, setRecentOrderedProducts] = useState([]);
+    const [recentOrderId, setRecentOrderId] = useState(0);
     const [infiniteScrollLoading, setInfiniteScrollLoading] = useState(false);
 
+    const userId = useSelector(state => {
+        return state.commonStore.userInfo.userId
+    })
+
+    const defaultAddress = useSelector(state => {
+        return state.commonStore.userInfo.defaultAddress
+    })
+
     useEffect(() => {
-        GoogleSignin.isSignedIn().then(isSignedIn => {
-            if (isSignedIn) {
-                GoogleSignin.getCurrentUser().then(user => {
-                    Axios.get(ApiUrls.SERVICE_URL + ApiUrls.GET_USER_SERACH_BY_KEYWORD + user.user.email).then((succResp) => {
-                        setUserId(succResp.data[0].id)
-                    })
-                });
-            } else {
-                Keychain.getGenericPassword().then(credentials => {
-                    if (credentials) {
-                        setUserId(credentials.username)
-                    }
-                })
-            }
-        });
         Axios.get(ApiUrls.SERVICE_URL + ApiUrls.GET_PROMOTIONAL_PRODUCTS_API).then((succResp) => {
             setBanners(succResp.data);
         }, (errorresp) => {
@@ -76,9 +72,8 @@ export const Variant3Home = (props) => {
     }, [])
 
     useEffect(() => {
-        if(userId != -1){
+        if (userId != -1) {
             setInfiniteScrollLoading(true)
-            console.log("setInfiniteScrollLoading", infiniteScrollLoading)
             Axios.get(ApiUrls.SERVICE_URL + ApiUrls.GET_PAGINATION_API + pageCurrent, {
                 headers: {
                     user_id: userId
@@ -94,30 +89,52 @@ export const Variant3Home = (props) => {
     }, [pageCurrent]);
 
     useEffect(() => {
+        Axios.get(ApiUrls.SERVICE_URL + ApiUrls.GET_PRODUCTS_FOODITEMS_API + "?items_per_page=24&page_number=" + pageCurrent, {
+            headers: {
+                user_id: userId
+            }
+        }).then((succResp) => {
+            setProducts(succResp.data);
+        }, (errorresp) => {
+            console.log(JSON.stringify(errorresp));
+        })
         if (userId != -1) {
-            Axios.get(ApiUrls.SERVICE_URL + ApiUrls.GET_PRODUCTS_FOODITEMS_API + "?items_per_page=24&page_number=" + pageCurrent, {
+            Axios.get(ApiUrls.SERVICE_URL + ApiUrls.GET_BY_ADDRESS_ALL_API, {
                 headers: {
-                    user_id: userId
+                    userId: userId
                 }
             }).then((succResp) => {
-                setProducts(succResp.data);
-            }, (errorresp) => {
-                console.log(JSON.stringify(errorresp));
-            })
-            Axios.get(ApiUrls.SERVICE_URL + ApiUrls.GET_SCOTCH_PRODUCT_BY_CATEGORY_ID_API, {
-                headers: {
-                    user_id: userId
-                }
-            }).then((succResp) => {
-                setScotch(succResp.data);
-            }, (errorresp) => {
-                console.log("scotch error: ", ApiUrls.SERVICE_URL + ApiUrls.GET_SCOTCH_PRODUCT_BY_CATEGORY_ID_API ,JSON.stringify(errorresp));
-            })
-            Axios.get(ApiUrls.SERVICE_URL + ApiUrls.GET_USER_ORDER_PRODUCTS + userId).then((succResp) => {
-                setBuyAgainOrders(succResp.data);
+                if (succResp.data.length)
+                    succResp.data.forEach((item, index) => {
+                        if (item.is_default)
+                            dispatch(commonActions.setDefaultAddress(item))
+                    })
             }, (errorresp) => {
                 console.log("From error")
-                console.log(JSON.stringify(errorresp));
+                console.log((errorresp));
+            })
+            Axios.get(ApiUrls.SERVICE_URL + ApiUrls.GET_RECENT_ORDER, {
+                headers: {
+                    userId: userId
+                }
+            }).then((succResp) => {
+                setRecentOrderId(succResp.data[0].order_id)
+                if (succResp.data?.length && succResp.data[0]?.order_DETAILS?.length){
+                    setRecentOrderedProducts(succResp.data[0].order_DETAILS)
+                }
+            })
+            Axios.get(ApiUrls.SERVICE_URL + ApiUrls.GET_CART_LIST_API, {
+                headers: {
+                    userId: userId
+                }
+            }).then((CartData) => {
+                let quantity = 0;
+                for (let item in CartData.data) {
+                    quantity += CartData.data[item].c1.qty;
+                }
+                dispatch(commonActions.setCartCount(quantity));
+            }, err => {
+                console.log("cart err", err)
             })
         }
     }, [userId])
@@ -166,34 +183,39 @@ export const Variant3Home = (props) => {
     const [direction, setDirection] = useState("");
     const onScrollHandler = (e) => {
         //        console.log(e.nativeEvent.contentOffset.y)
-        const currentOffset = e.nativeEvent.contentOffset.y;
-        const offsetDiff = (currentOffset - offset)
-        setOffset(currentOffset);
-        var currentDirection = "";
-        if (offsetDiff > 0)
-            currentDirection = "down";
-        else
-            currentDirection = "up";
-        if (direction !== currentDirection) {
-            setDirection(currentDirection);
-            if (direction === "down") {
-                console.log("down")
-                contextData.setStateData({
-                    common: {
-                        isTabBarVisible: true
-                    }
-                })
-            } else {
-                console.log("up")
-                contextData.setStateData({
-                    common: {
-                        isTabBarVisible: false
-                    }
-                })
-            }
-        }
-        if (Math.floor(e.nativeEvent.contentSize.height - e.nativeEvent.layoutMeasurement.height) == Math.floor(e.nativeEvent.contentOffset.y)) {
-                     setPageCurrent(pageCurrent+1);
+        // const currentOffset = e.nativeEvent.contentOffset.y;
+        // const offsetDiff = (currentOffset - offset)
+        // setOffset(currentOffset);
+        // var currentDirection = "";
+        // if (offsetDiff > 0)
+        //     currentDirection = "down";
+        // else
+        //     currentDirection = "up";
+        // if (direction !== currentDirection) {
+        //     setDirection(currentDirection);
+        //     if (direction === "down") {
+        //         console.log("down")
+        //         contextData.setStateData({
+        //             common: {
+        //                 isTabBarVisible: true
+        //             }
+        //         })
+        //     } else {
+        //         console.log("up")
+        //         contextData.setStateData({
+        //             common: {
+        //                 isTabBarVisible: false
+        //             }
+        //         })
+        //     }
+        // }
+        const SCROLL_THRESHOLD = 100; // Adjust this threshold as needed
+
+        if (
+            Math.floor(e.nativeEvent.contentSize.height - e.nativeEvent.layoutMeasurement.height - SCROLL_THRESHOLD) <=
+            Math.floor(e.nativeEvent.contentOffset.y)
+        ) {
+            setPageCurrent(pageCurrent + 1);
         }
     };
 
@@ -204,12 +226,23 @@ export const Variant3Home = (props) => {
             <FocusAwareStatusBar translucent backgroundColor="transparent" barStyle="dark-content" />
 
             <View style={screenStyles.mainContainer}>
+                {(userId != -1 && defaultAddress.state) &&<Text style={{
+                    fontFamily: fonts.RUBIK_REGULAR,
+                    color: colors.headingColor, marginBottom: 5,
+                    textAlign: 'center', justifyContent: 'center',
+                    paddingTop: hp("1%"), fontWeight: "bold",
+                    marginHorizontal: wp("5%"),
+                    fontSize: 15, marginTop: hp("2%")
+                }}
+                    numberOfLines={1}>{(defaultAddress.city || "") + " " + (defaultAddress.society || "") + " " + (defaultAddress.state || "") + " " + (defaultAddress.pincode || "")}
+                    </Text>}
                 <SearchButton
                     onPress={() => props.navigation.push(Routes.SEARCH, { userId: userId })}
                 />
 
                 <ScrollView showsVerticalScrollIndicator={false}
-                    onScroll={onScrollHandler}>
+                    onScroll={onScrollHandler}
+                    scrollEventThrottle={400}>
                     <Text style={screenStyles.categoriesTitle}>What would you like to have?</Text>
 
                     {!readCategory.length &&
@@ -240,77 +273,59 @@ export const Variant3Home = (props) => {
 
                     {renderPromotionSlider()}
 
-                    {(buyAgainOrders.length > 0) && <TouchableOpacity onPress={() => {
-                        props.navigation.navigate(Routes.POPULAR_DEALS, { userId: userId, title: "Past Orders" });
-                    }}>
+                    {(recentOrderedProducts.length > 0) && <TouchableOpacity
+                        onPress={() => {
+                            props.navigation.navigate(Routes.CART_SUMMARY, {
+                                userId: userId,
+                                orderId: recentOrderId,
+                                action: "repeatLastOrder"
+                            });
+                        }}
+                    >
                         <View style={screenStyles.sectionHeading}>
-                            <Text style={screenStyles.BuyAgainTitle}>Buy Again From Previous Orders</Text>
+                            <Text style={screenStyles.BuyAgainTitle}>Repeat Last Order</Text>
 
                             <SvgIcon type={IconNames.ArrowRight} width={20} height={20}
                                 top={-10} color={colors.subHeadingColor} />
                         </View>
                     </TouchableOpacity>}
+
                     <View style={screenStyles.categoriesContainer}>
                         <FlatList
                             horizontal
                             showsHorizontalScrollIndicator={false}
-                            data={buyAgainOrders}
+                            data={recentOrderedProducts}
                             keyExtractor={(item, index) => {
                                 return item.id;
                             }}
-                            renderItem={({ item }) =>
-                                <View style={screenStyles.categoryItem}>
+                            renderItem={({ item }) => {
+                                const varientInfo = item.varients_info ? item.varients_info : item.Associated_Varients;
+                                const productInfo = item.product_info ? item.product_info : item;
+                                return <View style={screenStyles.categoryItem}>
                                     <ReorderItem
                                         navigation={props.navigation}
-                                        secondaryTitle={item.price}
-                                        ratingValue={item.ratingValue}
+                                        secondaryTitle={parseFloat(varientInfo[0]?.base_price).toFixed(2)}
+                                        ratingValue={productInfo.ratingValue}
                                         secondaryColor={item.secondaryColor}
-                                        primaryTitle={item.product_name}
+                                        primaryTitle={productInfo.product_name}
                                         primaryColor={item.primaryColor}
                                         iconBgColor={item.iconBgColor}
                                         iconURI={item.iconURI}
-                                        bgURI={item.bgURI}
-                                        img={item.product_image}
-                                        item={item}
-                                        id={item.product_id}
+                                        bgURI={productInfo.bgURI}
+                                        img={productInfo.product_image}
+                                        item={{ ...productInfo, 
+                                                cartCount: 0,
+                                                VARIENTS: varientInfo.map(varientItem => {
+                                                    return {...varientItem, total_count:0} 
+                                                })
+                                            }}
+                                        id={productInfo.product_id}
                                         userid={userId}
                                     />
                                 </View>
-                            }
+                            }}
                         />
                     </View>
-
-                    {(scotch.length != 0) && <Text style={{ ...screenStyles.categoriesTitle, marginVertical: hp("2") }}>Checkout Our Top Sellers</Text>}
-
-                    <FlatList
-                        showsVerticalScrollIndicator={false}
-                        data={scotch}
-                        numColumns={2}
-                        renderItem={({ item, index }) => {
-                            return <FoodItem
-                                title={item.product_name}
-                                image={item.Image_Thumb_Nail}
-                                bigImage={item.product_image}
-                                price={item.price}
-                                weight={item.weight}
-                                discount={item.discount}
-                                cartCount={item.cartCount}
-                                isFavourite={item.isFavourite}
-                                detail={item.detail}
-                                review_count={item.review_count}
-                                ratingValue={item.ratingValue}
-                                id={item.product_id}
-                                userid={userId}
-                                cartCountChange={(count) => {
-                                }}
-                                favouriteChange={(favourite) => {
-                                }}
-                                navigation={props.navigation}
-                            />
-                        }}
-                    />
-
-                    <Text style={screenStyles.categoriesTitle}>Checkout Our Frequently Ordered Drinks</Text>
 
                     <TouchableOpacity onPress={() => {
                         props.navigation.navigate(Routes.POPULAR_DEALS, { userId: userId });
@@ -334,26 +349,28 @@ export const Variant3Home = (props) => {
                         }}
                         renderItem={({ item }) => {
                             return <FoodItem
-                                    id={item.product_id}
-                                    title={item.product_name}
-                                    image={item.Image_Thumb_Nail}
-                                    bigImage={item.product_image}
-                                    price={item.price}
-                                    weight={item.weight}
-                                    discount={item.discount}
-                                    cartCount={item.cartCount}
-                                    isFavourite={item.isFavourite}
-                                    detail={item.detail}
-                                    review_count={item.review_count}
-                                    ratingValue={item.ratingValue}
-                                    userid={userId}
-                                    cartCountChange={(count) => {
-                                    }}
-                                    favouriteChange={(favourite) => {
-                                     }}
-                                    navigation={props.navigation}
-                                />
-                            }
+                                item={item}
+                                id={item.product_id}
+                                title={item.product_name}
+                                image={item.Image_Thumb_Nail}
+                                bigImage={item.product_image}
+                                price={item.price}
+                                weight={item.weight}
+                                discount={item.discount}
+                                cartCount={item.cartCount}
+                                isFavourite={item.isFavourite}
+                                detail={item.detail}
+                                review_count={item.review_count}
+                                ratingValue={item.ratingValue}
+                                userid={userId}
+                                cartCountChange={(count) => {
+                                }}
+                                favouriteChange={(favourite) => {
+                                }}
+                                navigation={props.navigation}
+                                navigatedFrom={"home"}
+                            />
+                        }
                         }
                     />
                     {infiniteScrollLoading &&

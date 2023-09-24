@@ -48,9 +48,9 @@ export const Styles = function (styles, scheme, colors) {
         },
 
         sectionHeadingText: {
-            fontFamily: fonts.RUBIK_MEDIUM,
+            fontWeight: 'bold',
             fontSize: Typography.P2,
-            color: colors.headingColor
+            color: colors.activeColor
         },
 
         sectionHeadingIcon: {
@@ -58,7 +58,7 @@ export const Styles = function (styles, scheme, colors) {
         },
 
         categorySliderActiveText: {
-            fontFamily: fonts.RUBIK_MEDIUM,
+            
             fontSize: Typography.P2,
             color: colors.headingColor,
             marginHorizontal: 15
@@ -102,7 +102,6 @@ export const Styles = function (styles, scheme, colors) {
             fontFamily: fonts.RUBIK_REGULAR,
             fontSize: 20,
             color: colors.headingColor,
-            fontWeight: "bold",
             marginVertical: 5
         },
         categoryItem: {
@@ -114,8 +113,7 @@ export const Styles = function (styles, scheme, colors) {
             fontFamily: fonts.RUBIK_REGULAR,
             fontSize: 19,
             color: colors.headingColor,
-            fontWeight: "bold",
-            marginBottom: 5
+            marginBottom: 5,
         },
 
         sectionContainer: {

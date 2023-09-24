@@ -3,5 +3,5 @@ module.exports = {
         ios: {},
         android: {}, // grouped into "project"
     },
-    assets: ["./branding/boozemart/assets/fonts/"],
+    assets: ["./branding/Boozemart2/assets/fonts/"],
 };

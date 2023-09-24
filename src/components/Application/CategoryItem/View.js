@@ -37,7 +37,7 @@ export const CategoryItem = (props) => {
 
                     <Image source={{uri: img}} style={{height: "60%", width: "70%", resizeMode: "contain"}}/>
                     <Text style={[Styles.secondaryTitle, {color: secondaryColor}]}>{secondaryTitle}</Text>
-                    <Text style={[Styles.primaryTitle, {fontWeight: 'bold'}]}>{primaryTitle}</Text>
+                    <Text style={[Styles.primaryTitle]}>{primaryTitle}</Text>
 
                 </View>
             </View>

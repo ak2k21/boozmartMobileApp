@@ -5,7 +5,7 @@ import {Text} from "react-native-elements";
 import {Styles} from "./Style";
 import {useTheme} from "@react-navigation/native";
 import AppInput from "../AppInput/View";
-import IconNames from "../../../../branding/boozemart/assets/IconNames";
+import IconNames from "../../../../branding/Boozemart2/assets/IconNames";
 import {CustomSwitch} from "../../Global/CustomSwitch/View";
 
 

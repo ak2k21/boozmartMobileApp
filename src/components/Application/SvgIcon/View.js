@@ -105,9 +105,10 @@ import {
     PendingFull,
     ShippedFull,
     GiftSimple,
-    Mobile
-} from "../../../../branding/boozemart/assets/Icons"
-import IconNames from "../../../../branding/boozemart/assets/IconNames";
+    Mobile,
+    MinusFull
+} from "../../../../branding/Boozemart2/assets/Icons"
+import IconNames from "../../../../branding/Boozemart2/assets/IconNames";
 
 
 const PropTypes = require('prop-types');
@@ -569,10 +570,15 @@ export const SvgIcon = (props) => {
         )
     }
     else if (type === IconNames.Mobile) {
-            return (
-                <Mobile style={[style]} width={width} height={height} fill={color} />
-            )
-        }
+        return (
+            <Mobile style={[style]} width={width} height={height} fill={color} />
+        )
+    }
+    else if (type === IconNames.MinusFull) {
+        return (
+            <MinusFull style={[style]} width={width} height={height} fill={color} />
+        )
+    }
     else {
         return (
             <Google style={[style]} width={width} height={height} fill={color} />
@@ -582,13 +588,13 @@ export const SvgIcon = (props) => {
 
 }
 
-SvgIcon.propTypes = {
+// SvgIcon.propTypes = {
 
-    type: PropTypes.string,
-    color: PropTypes.string,
-    width: PropTypes.number,
-    height: PropTypes.number,
-    style: PropTypes.any,
+//     type: PropTypes.string,
+//     color: PropTypes.string,
+//     width: PropTypes.number,
+//     height: PropTypes.number,
+//     style: PropTypes.any,
 
-};
+// };
 

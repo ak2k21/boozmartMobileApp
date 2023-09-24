@@ -9,9 +9,9 @@ import AppHeader from "../../../components/Application/AppHeader/View"
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scrollview";
 import AppButton from "../../../components/Application/AppButton/View";
 import {useTheme} from "@react-navigation/native";
-import {commonLightStyles} from "../../../../branding/boozemart/styles/light/Style";
+import {commonLightStyles} from "../../../../branding/Boozemart2/styles/light/Style";
 import Routes from "../../../navigation/Routes";
-import IconNames from "../../../../branding/boozemart/assets/IconNames";
+import IconNames from "../../../../branding/Boozemart2/assets/IconNames";
 import {FocusAwareStatusBar} from "../../../components/Application/FocusAwareStatusBar/FocusAwareStatusBar";
 
 

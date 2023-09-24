@@ -4,9 +4,9 @@ import {StackActions} from '@react-navigation/native';
 import Video from 'react-native-video';
 import {Styles} from "./Styles";
 import {useTheme} from "@react-navigation/native";
-import {commonDarkStyles} from "../../../branding/boozemart/styles/dark/Style";
-import {commonLightStyles} from "../../../branding/boozemart/styles/light/Style";
-import Config from "../../../branding/boozemart/configuration/Config";
+import {commonDarkStyles} from "../../../branding/Boozemart2/styles/dark/Style";
+import {commonLightStyles} from "../../../branding/Boozemart2/styles/light/Style";
+import Config from "../../../branding/Boozemart2/configuration/Config";
 import Routes from '../../navigation/Routes';
 
 export const SplashScreen = (props) => {

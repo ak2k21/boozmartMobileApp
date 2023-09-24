@@ -28,15 +28,16 @@ export const Styles = function (styles, darkColors, lightColors) {
             height: hp("70%"),
             paddingTop: hp("3"),
             marginTop: hp(20),
-            paddingHorizontal: wp("3%")
+            paddingHorizontal: wp("3%"),
+            position: "relative"
         },
 
         contentContainerStyle: {
-            // marginTop: hp(5)
+            marginTop: hp("3")
         },
 
         titleText: {
-            fontFamily: fonts.RUBIK_MEDIUM,
+            
             fontSize: Typography.H8,
             marginBottom: hp("0.5"),
             color: "#dd3a22",
@@ -66,13 +67,13 @@ export const Styles = function (styles, darkColors, lightColors) {
             fontFamily: fonts.RUBIK_REGULAR,
             fontSize: Typography.P5,
             color: "#a09da7",
-            alignSelf: "center",
+            alignSelf: "right",
             marginLeft: hp(1)
         },
 
         signupButton: {
             color: lightColors.headingColor,
-            fontFamily: fonts.RUBIK_MEDIUM,
+            
             fontSize: Typography.P4,
 
         },
@@ -107,8 +108,36 @@ export const Styles = function (styles, darkColors, lightColors) {
 
         googleLoginIcon: {
             tintColor: 'red'
-        }
-
+        },
+        splashVideo: {
+            height: hp("110"),
+            width: wp("100")
+        },
+        centeredView: {
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginTop: 22,
+          },
+          modalView: {
+            margin: 20,
+            backgroundColor: 'white',
+            borderRadius: 20,
+            padding: 35,
+            alignItems: 'center',
+            shadowColor: '#000',
+            shadowOffset: {
+              width: 0,
+              height: 2,
+            },
+            shadowOpacity: 0.25,
+            shadowRadius: 4,
+            elevation: 5,
+          },
+          modalText: {
+            marginBottom: 15,
+            textAlign: 'center',
+          },
     }
 
 }

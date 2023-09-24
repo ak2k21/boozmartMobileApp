@@ -26,12 +26,12 @@ export const Styles = function (scheme, colors) {
         },
         priceText: {
             fontSize: Typography.P5,
-            fontFamily: Fonts.RUBIK_MEDIUM,
+            
             color: colors.subHeadingSecondaryColor
         },
         itemTitle: {
             fontSize: Typography.P3,
-            fontFamily: Fonts.RUBIK_MEDIUM,
+            
             color: colors.headingColor,
             marginVertical: hp(0.5),
 //            flexWrap: wrap,
