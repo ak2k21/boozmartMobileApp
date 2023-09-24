@@ -1,6 +1,6 @@
 import React, {useRef, useState} from 'react';
-import {ImageBackground, View, TouchableOpacity} from "react-native";
-import {Button, Text} from 'react-native-elements';
+import {ImageBackground, View, TouchableOpacity, Modal, ScrollView,} from "react-native";
+import {Button, Text,CheckBox} from 'react-native-elements';
 import AppConfig from '../../../../branding/App_config';
 import AppInput from "../../../components/Application/AppInput/View"
 import Routes from '../../../navigation/Routes';
@@ -24,6 +24,7 @@ import Axios from "axios";
 import ApiUrls from "../../../utils/ApiUrls";
 import {CountryPicker, CountryList} from "react-native-country-codes-picker";
 
+
 const assets = AppConfig.assets.default;
 const lightColors = AppConfig.lightColors.default;
 
@@ -38,9 +39,11 @@ export const Variant3LoginFormScreen = (props) => {
     const [mobile, setMobile] = useState("")
     const [show, setShow] = useState(false);
     const [countryCode, setCountryCode] = useState('+91');
-
+    const [agreeToTerms, setAgreeToTerms]= useState(false)
     //References
+    const [showTermsPopup, setShowTermsPopup] = useState(false);
     let inputRef = useRef();
+
 
     return (
         <ImageBackground source={require("../../../screens/Variant3/LoginForm/Assets/login-wallpaper-2.jpg")} style={screenStyles.mainContainer} resizeMode={"cover"}>
@@ -105,6 +108,8 @@ export const Variant3LoginFormScreen = (props) => {
                                             paddingLeft: wp("3")
                                         }}>{countryCode}</Text>
                                     </TouchableOpacity>*/}
+
+
                                     <View style={{
                                         width: wp("84%"),
                                     }}>
@@ -118,6 +123,7 @@ export const Variant3LoginFormScreen = (props) => {
                                                 setMobile(mobile)
                                             }}
                                         />
+
                                     </View>
                                     </View>
 
@@ -129,6 +135,9 @@ export const Variant3LoginFormScreen = (props) => {
                                               setShow(false)
                                           }}
                                        />
+
+
+
 
                             {/*<View style={screenStyles.forgotPasswordContainer}>
 
@@ -160,6 +169,7 @@ export const Variant3LoginFormScreen = (props) => {
                             <AppButton
                                 buttonStyle = {globalStyles.primaryButtonStyle}
                                 title={"Get Verification Code"}
+                                disabled={!agreeToTerms}
                                 onPress={() => {
                                     Axios.post(ApiUrls.SERVICE_URL+ ApiUrls.POST_GENERATED_OTP_BY_USER_API, {
                                         user_phone: countryCode+mobile
@@ -170,8 +180,12 @@ export const Variant3LoginFormScreen = (props) => {
                                 }}
                             />
 
-                            <AppSocialButton onPress={() => {
 
+
+                            <AppSocialButton onPress={() => {
+                                if(!agreeToTerms){
+                                return;
+                                }
                                     GoogleSignin.configure({
                                          webClientId: '62455514535-pe322e7os1ok65ftturlepcim8mageu1.apps.googleusercontent.com',
                                          offlineAccess: true,
@@ -217,6 +231,54 @@ export const Variant3LoginFormScreen = (props) => {
                                  primaryShadowStart={"transparent"}
                                  primaryShadowFinal={"transparent"}
                             />
+
+
+                        <CheckBox
+                          title="I agree to the Terms and Conditions"
+                          checked={agreeToTerms}
+                          onPress={() => {
+                            setAgreeToTerms(!agreeToTerms);
+                            if (!agreeToTerms) {
+                              setShowTermsPopup(true); // Show the popup when checkbox is checked
+                            }
+                          }}
+                        />
+
+
+                       <Modal
+                         visible={showTermsPopup}
+                         animationType="slide"
+                         transparent={true}
+                         onRequestClose={() => setShowTermsPopup(false)}
+                       >
+                         <View style={{ flex: 1, justifyContent: 'flex-end', backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
+                           <View style={{ backgroundColor: 'white', borderTopLeftRadius: 20, borderTopRightRadius: 20, padding: 20 }}>
+                             <Text style={{ fontSize: 18, fontWeight: 'bold', color: 'black', textAlign: 'center', marginBottom: 10 }}>Terms and Conditions</Text>
+                             <ScrollView>
+                               <Text style={{ fontSize: 16, lineHeight: 24, color: 'black', textAlign: 'center' }}>
+                                 {/* Your terms and conditions text */}
+                                I am a 21 years Old
+                               </Text>
+                             </ScrollView>
+                             <View style={{ marginTop: 20, alignSelf: 'flex-center' }}>
+                               <Button
+                                 title="Close"
+                                 onPress={() => setShowTermsPopup(false)}
+                                 buttonStyle={{ backgroundColor: '#dd3a22', width: 'auto' }}
+                                 titleStyle={{ color: 'black' }}
+                               />
+                             </View>
+                           </View>
+                         </View>
+                       </Modal>
+
+
+
+
+
+
+
+
 
                             {/*<View style={screenStyles.accountBottomContainer}>
                                 <Text style={screenStyles.accountText}>{"Don't have an account?"}</Text>

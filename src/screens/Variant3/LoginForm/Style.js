@@ -108,6 +108,7 @@ export const Styles = function (styles, darkColors, lightColors) {
         googleLoginIcon: {
             tintColor: 'red'
         }
+
     }
 
 }
